@@ -46,10 +46,10 @@ const CountryDetail = (props) => {
                 {country.Activities.length ? <CardList>
                     {country.Activities.map(a => {
                         return (<li key={a.id}>
-                            <CardTitle>{a.name}</CardTitle>
-                            <CardTitle>{a.difficulty}</CardTitle>
-                            <CardTitle>{a.duration}</CardTitle>
-                            <CardTitle>{a.season}</CardTitle>
+                            <CardTitle><b>NOMBRE</b>:{a.name}</CardTitle>
+                            <CardTitle><b>DIFICULTAD</b>:{a.difficulty}</CardTitle>
+                            <CardTitle><b>DURACION</b>:{a.duration}</CardTitle>
+                            <CardTitle><b>TEMPORADA</b>:{a.season}</CardTitle>
                         </li>);
                     })}
                 </CardList> : "No posee actividades turisticas"}
