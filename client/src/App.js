@@ -10,8 +10,8 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/home" element={<Home />} />
         <Route path="/country/:countryId" element={<CountryDetail />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/activity" element={<Form />} />
       </Routes>
     </div>
