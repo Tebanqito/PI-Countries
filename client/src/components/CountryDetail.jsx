@@ -35,14 +35,14 @@ const CountryDetail = (props) => {
             <CardDetailCotainer>
                 <Link to="/home">HOME</Link>
                 <h1>Country Detail</h1>
-                <CardTitle>ID: {country.id}</CardTitle>
-                <CardTitle>NOMBRE: {country.name}</CardTitle>
-                <CardTitle>CAPITAL: {country.capital}</CardTitle>
-                <CardTitle>SUBREGION: {country.subRegion ? country.subRegion : "No posee subregion"}</CardTitle>
-                <CardTitle>AREA: {country.area}</CardTitle>
-                <CardTitle>POBLACION: {country.poblacion}</CardTitle>
+                <CardTitle><b>ID</b>: {country.id}</CardTitle>
+                <CardTitle><b>NOMBRE</b>: {country.name}</CardTitle>
+                <CardTitle><b>CAPITAL</b>: {country.capital}</CardTitle>
+                <CardTitle><b>SUBREGION</b>: {country.subRegion ? country.subRegion : "No posee subregion"}</CardTitle>
+                <CardTitle><b>AREA</b>: {country.area}</CardTitle>
+                <CardTitle><b>POBLACION</b>: {country.poblacion}</CardTitle>
                 <Fondo>
-                <CardLabel>ACTIVIDADES TURISTICAS:</CardLabel>
+                <CardLabel><b>ACTIVIDADES TURISTICAS</b>:</CardLabel>
                 {country.Activities.length ? <CardList>
                     {country.Activities.map(a => {
                         return (<li key={a.id}>
