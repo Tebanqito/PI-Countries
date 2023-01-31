@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { cleanCountries, getCountries } from "../redux/actions";
 import {
-    HomeContainer
+    HomeContainer,
+    HomeButton
 } from "../styles/styles";
 
 export default function Home() {
@@ -65,13 +66,13 @@ export default function Home() {
     return (
         <HomeContainer>
             <div>
-                <button onClick={filterAlfabeticamenteAsc}>ordenar ascendentemente alfabeticamente</button>
+                <HomeButton onClick={filterAlfabeticamenteAsc}>ordenar ascendentemente alfabeticamente</HomeButton>
             </div>
             <div>
-                <button onClick={filterAlfabeticamenteDesc}>ordenar descendentemente alfabeticamente</button>
+                <HomeButton onClick={filterAlfabeticamenteDesc}>ordenar descendentemente alfabeticamente</HomeButton>
             </div>
             <div>
-                <button onClick={ordenarCantidadPoblacion}>ordenar por cantidad de poblacion</button>
+                <HomeButton onClick={ordenarCantidadPoblacion}>ordenar por cantidad de poblacion</HomeButton>
             </div>
 
             <FilterContinent
