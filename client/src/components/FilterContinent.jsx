@@ -5,7 +5,7 @@ const FilterContinent = (props) => {
 
     return (
         <div>
-                <label htmlFor="">Filtrar por continente</label>
+                <label htmlFor="">Filtrar por continente:</label>
                 <input type="text" name="continentName" value={props.filtro} onChange={handleInputChange} />
         </div>
     );
