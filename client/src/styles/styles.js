@@ -131,6 +131,14 @@ export const HomeLink = styled.a`
   text-decoration: none;
 `;
 
+export const HomeButton = styled.button`
+  margin-top: 4px;
+  padding: 4px;
+  border-radius: 5px;
+  background-color: #FF5733;
+  text-decoration: none;
+`;
+
 export const NextPrevButton = styled.button`
   width: 100%;
   padding: 10px;
