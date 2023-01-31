@@ -9,6 +9,7 @@ import {
     CardLabel,
     CardList,
     Fondo,
+    HomeLink,
     ListItemFondo
 } from "../styles/styles"
 
@@ -33,7 +34,7 @@ const CountryDetail = (props) => {
     return (
         <Fondo>
             <CardDetailCotainer>
-                <Link to="/home">HOME</Link>
+                <HomeLink href="/home">HOME</HomeLink>
                 <h1>Country Detail</h1>
                 <CardTitle><b>ID</b>: {country.id}</CardTitle>
                 <CardTitle><b>NOMBRE</b>: {country.name}</CardTitle>
