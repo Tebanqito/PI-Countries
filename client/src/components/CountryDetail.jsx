@@ -50,6 +50,7 @@ const CountryDetail = (props) => {
                             <CardTitle><b>DIFICULTAD</b>:{a.difficulty}</CardTitle>
                             <CardTitle><b>DURACION</b>:{a.duration}</CardTitle>
                             <CardTitle><b>TEMPORADA</b>:{a.season}</CardTitle>
+                            <hr/>
                         </li>);
                     })}
                 </CardList> : "No posee actividades turisticas"}
