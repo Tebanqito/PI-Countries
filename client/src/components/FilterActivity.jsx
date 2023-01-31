@@ -5,7 +5,7 @@ const FilterActivity = (props) => {
 
     return (
         <div>
-                <label htmlFor="">Filtrar por Actividad Turistica</label>
+                <label htmlFor="">Filtrar por Actividad Turistica:</label>
                 <input type="text" name="activityName" value={props.filtro} onChange={handleInputChange} />
         </div>
     );
