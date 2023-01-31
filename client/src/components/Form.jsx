@@ -71,7 +71,7 @@ const Form = (props) => {
                     {countriesToSelect}
                 </FormSelect>
 
-                <FormButton type='submit' onClick={handleSubmit}>Create Team</FormButton>
+                <FormButton type='submit' onClick={handleSubmit}>Crear Actividad</FormButton>
             </FormContainer>
         </>
     );
