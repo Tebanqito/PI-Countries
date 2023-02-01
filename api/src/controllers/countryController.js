@@ -11,7 +11,13 @@ const getCountryById = async id => {
     return country;
 };
 
+const findAllCountriesByName = async name => {
+    const countries = await Country.findAll({ where: { name: { [Op.iLike]: '%' + name + '%' } } });
+    return countries; 
+}
+
 module.exports = {
     createCountry,
-    getCountryById
+    getCountryById,
+    findAllCountriesByName
 };
