@@ -1,4 +1,4 @@
-const { Country } = require("../db");
+const { Country, Activity } = require("../db");
 const { Op } = require("sequelize");
 
 const createCountry = async (id, name, imgFlag, continent, capital, subRegion, area, poblacion) => {
@@ -6,12 +6,12 @@ const createCountry = async (id, name, imgFlag, continent, capital, subRegion, a
     return newCountry;
 };
 
-const getById = async id => {
-    const country = await Country.findByPk(id);
+const getCountryById = async id => {
+    const country = await Country.findByPk(id, { include: [Activity] });
     return country;
 };
 
 module.exports = {
     createCountry,
-    getById
+    getCountryById
 };
