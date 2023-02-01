@@ -25,7 +25,7 @@ export const getCountryDetail = (id) => (dispatch) => {
 
 export const getActivities = () => {
     return function (dispatch) {
-        axios.get("http://localhost:3001/getActivities")
+        axios.get("http://localhost:3001/activities/getActivities")
             .then(data => dispatch({ type: GET_ACTIVITIES, payload: data.data }));
     };
 };
