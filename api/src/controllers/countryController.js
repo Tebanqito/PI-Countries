@@ -28,7 +28,6 @@ const findAllCountries = async () => {
 }
 
 module.exports = {
-    createCountry,
     getCountryById,
     findAllCountriesByName,
     findAllCountries
