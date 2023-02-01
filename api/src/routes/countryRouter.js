@@ -1,6 +1,5 @@
 const { Router } = require("express");
 const {
-    createCountry,
     getCountryById,
     findAllCountriesByName,
     findAllCountries
