@@ -9,7 +9,7 @@ import {
 
 const initialState = {
     countries: [],
-    countryDetail: {},
+    countryDetail: [],
     countriesActivities: [],
     activities: [],
 };
@@ -29,7 +29,7 @@ export const reducer = (state = initialState, action) => {
         case GET_COUNTRY_DETAIL:
             return {
                 ...state,
-                countryDetail: action.payload
+                countryDetail: [action.payload]
             };
         case GET_ACTIVITIES:
             return {
