@@ -18,34 +18,34 @@ const CountryDetail = (props) => {
     const { countryId } = useParams();
 
     useEffect(() => {
-        dispatch(getCountries());
-        // dispatch(getCountryDetail(countryId));
+        // dispatch(getCountries());
+        dispatch(getCountryDetail(countryId));
         return () => {
             //dispatch(cleanCountries());
         }
     }, []);
 
-    // const country = useSelector(state => state.countryDetail);
-    // console.log(country);
+    const country = useSelector(state => state.countryDetail);
+    console.log(country);
 
-    const countries = useSelector(state => { return state.countries });
-    const country = countries.filter(c => c.id == countryId)[0];
+    // const countries = useSelector(state => { return state.countries });
+    // const country = countries.filter(c => c.id == countryId)[0];
 
     return (
         <Fondo>
             <CardDetailCotainer>
                 <HomeLink href="/home">HOME</HomeLink>
                 <h1>Country Detail</h1>
-                <CardTitle><b>ID</b>: {country.id}</CardTitle>
-                <CardTitle><b>NOMBRE</b>: {country.name}</CardTitle>
-                <CardTitle><b>CAPITAL</b>: {country.capital}</CardTitle>
-                <CardTitle><b>SUBREGION</b>: {country.subRegion ? country.subRegion : "No posee subregion"}</CardTitle>
-                <CardTitle><b>AREA</b>: {country.area}</CardTitle>
-                <CardTitle><b>POBLACION</b>: {country.poblacion}</CardTitle>
+                <CardTitle><b>ID</b>: {country[0]?.id}</CardTitle>
+                <CardTitle><b>NOMBRE</b>: {country[0]?.name}</CardTitle>
+                <CardTitle><b>CAPITAL</b>: {country[0]?.capital}</CardTitle>
+                <CardTitle><b>SUBREGION</b>: {country[0]?.subRegion ? country[0]?.subRegion : "No posee subregion"}</CardTitle>
+                <CardTitle><b>AREA</b>: {country[0]?.area} Km2</CardTitle>
+                <CardTitle><b>POBLACION</b>: {country[0]?.poblacion}</CardTitle>
                 <Fondo>
                 <CardLabel><b>ACTIVIDADES TURISTICAS</b>:</CardLabel>
-                {country.Activities.length ? <CardList>
-                    {country.Activities.map(a => {
+                {country[0]?.Activities.length ? <CardList>
+                    {country[0]?.Activities.map(a => {
                         return (<li key={a.id}>
                             <CardTitle><b>NOMBRE</b>:{a.name}</CardTitle>
                             <CardTitle><b>DIFICULTAD</b>:{a.difficulty}</CardTitle>
@@ -56,7 +56,7 @@ const CountryDetail = (props) => {
                     })}
                 </CardList> : "No posee actividades turisticas"}
                 </Fondo>
-                <CardImage src={country.imgFlag} alt={`Flag of ${country.name}`} />
+                <CardImage src={country[0]?.imgFlag} alt={`Flag of ${country[0]?.name}`} />
             </CardDetailCotainer>
         </Fondo>
     );
