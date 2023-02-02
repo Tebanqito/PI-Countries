@@ -98,15 +98,16 @@ export const CardList = styled.ul`
 `;
 
 export const CardImage = styled.img`
-  width: 200px;
+  width: 100%;
   height: 200px;
-  border-radius: 100px;
-  margin-top: 20px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 20px;
 `;
 
 export const CardDetailCotainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  place-items: center;
   align-items: center;
   width: 400px;
   height: 550px;
@@ -151,6 +152,8 @@ export const NextPrevButton = styled.button`
 `;
 
 export const Fondo = styled.div`
+  display:  flex;
+  place-items: center;
   background-color: #32CD32;
 `;
 
