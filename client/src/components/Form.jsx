@@ -105,19 +105,19 @@ const Form = (props) => {
                 <h1>Creacion de Actividad Turistica</h1>
                 <label>Nombre: </label>
                 <FormInput type='text' name='name' value={input.name} onChange={handleInputChange}></FormInput>
-                <p>{errors.name && errors.name}</p>
+                {errors.name && <p>{errors.name}</p>}
 
                 <label>Dificultad: </label>
                 <FormInput type='number' name='difficulty' value={input.difficulty} onChange={handleInputChange}></FormInput>
-                <p>{errors.difficulty && errors.difficulty}</p>
+                {errors.difficulty && <p>{errors.difficulty}</p>}
 
                 <label>Duracion: </label>
                 <FormInput type='text' name='duration' value={input.duration} onChange={handleInputChange}></FormInput>
-                <p>{errors.duration && errors.duration}</p>
+                {errors.duration && <p>{errors.duration}</p>}
 
                 <label>Temporada: </label>
                 <FormInput type="text" name='season' value={input.season} onChange={handleInputChange}></FormInput>
-                <p>{errors.season && errors.season}</p>
+                {errors.season && <p>{errors.season}</p>}
 
                 <label htmlFor="">Paises</label>
                 <FormSelect name="paises" id="ps" onChange={handleSelect} multiple>
