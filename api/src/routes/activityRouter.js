@@ -120,11 +120,12 @@ activityRouter.post("/", async (req, res) => {
 
 activityRouter.put("/update/:id", async (req, res) => {
   const { id } = req.params;
+  const attributes = req.body;
 
   try {
-    if (!id) throw new Error("El id de la actividad esta indefinido.");
+    if (!id || !attributes) throw new Error("Datos incompletos.");
 
-    const activityUpdated = await updateActivityById(id);
+    const activityUpdated = await updateActivityById(id, attributes);
     if (!activityUpdated)
       throw new Error(
         `No se encuentra una actividad con el id ${id} en la BDD.`
