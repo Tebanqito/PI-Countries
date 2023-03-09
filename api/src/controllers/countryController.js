@@ -39,7 +39,7 @@ const findAllCountriesByActivityName = async (name) => {
   const activity = await Activity.findOne({
     where: { name: { [Op.like]: `%${name}%` } },
   });
-  const countries = await activity.getCountries();
+  const countries = await activity.getCountries({ include: [Activity] });
   return countries;
 };
 
