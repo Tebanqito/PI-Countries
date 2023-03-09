@@ -1,4 +1,4 @@
-const { Activity } = require("../db");
+const { Activity, Country } = require("../db");
 
 const createActivity = async (name, difficulty, duration, season) => {
   const activity = await Activity.create({
@@ -25,6 +25,20 @@ const getActivityByName = async (name) => {
     where: { name: { [Op.like]: `%${name}%` } },
   });
   return activity;
+};
+
+const getActivitiesByCountryId = async (countryId) => {
+  const country = await Country.findByPk(countryId);
+  const activities = await country.getActivities({ include: [Country] });
+  return activities;
+};
+
+const getActivitiesByCountryName = async (name) => {
+  const country = await Country.findOne({
+    where: { name: { [Op.like]: `%${name}%` } },
+  });
+  const activities = await country.getActivities({ include: [Country] });
+  return activities;
 };
 
 const getActivitiesBySeason = async (season) => {
@@ -58,6 +72,8 @@ module.exports = {
   getActivityById,
   getActivityByName,
   getActivitiesBySeason,
+  getActivitiesByCountryId,
+  getActivitiesByCountryName,
   updateActivityById,
   deleteActivityById,
 };
