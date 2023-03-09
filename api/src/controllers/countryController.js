@@ -1,6 +1,29 @@
 const { Country, Activity } = require("../db");
 const { Op } = require("sequelize");
 
+const createCountry = async (
+  id,
+  name,
+  imgFlag,
+  continent,
+  capital,
+  subRegion,
+  area,
+  poblacion
+) => {
+  const countryCreated = await Country.create({
+    id: id,
+    name: name,
+    imgFlag: imgFlag,
+    continent: continent,
+    capital: capital,
+    subRegion: subRegion,
+    area: area,
+    poblacion: poblacion,
+  });
+  return countryCreated;
+};
+
 const getCountryById = async (id) => {
   const country = await Country.findByPk(id, { include: [Activity] });
   return country;
@@ -38,7 +61,7 @@ const findAllCountriesBySubRegion = async (subRegion) => {
 
 const findAllCountriesWhitPopulationGreaterThanOrEqual = async (population) => {
   const countries = await Country.findAll({
-    where: { population: { [Op.gte]: population } },
+    where: { poblacion: { [Op.gte]: population } },
     include: [Activity],
   });
   return countries;
@@ -78,6 +101,7 @@ const findAllCountries = async () => {
 };
 
 module.exports = {
+  createCountry,
   getCountryById,
   findAllCountriesByName,
   findAllCountries,
