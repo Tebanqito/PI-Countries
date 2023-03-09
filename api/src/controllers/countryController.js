@@ -67,6 +67,25 @@ const findAllCountriesWhitPopulationGreaterThanOrEqual = async (population) => {
   return countries;
 };
 
+const findAllCountriesWhitPopulationLessThanOrEqual = async (population) => {
+  const countries = await Country.findAll({
+    where: { poblacion: { [Op.lte]: population } },
+    include: [Activity],
+  });
+  return countries;
+};
+
+const findAllCountriesWhitPopulationBetween = async (
+  lessPopulation,
+  greatPopulation
+) => {
+  const countries = await Country.findAll({
+    where: { poblacion: { [Op.between]: [lessPopulation, greatPopulation] } },
+    include: [Activity],
+  });
+  return countries;
+};
+
 const findAllCountriesByName = async (name) => {
   const countries = await Country.findAll({
     where: { name: { [Op.iLike]: `%${name}%` } },
@@ -110,4 +129,6 @@ module.exports = {
   findAllCountriesByContinent,
   findAllCountriesBySubRegion,
   findAllCountriesWhitPopulationGreaterThanOrEqual,
+  findAllCountriesWhitPopulationLessThanOrEqual,
+  findAllCountriesWhitPopulationBetween,
 };
