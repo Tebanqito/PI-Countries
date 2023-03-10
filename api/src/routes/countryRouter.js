@@ -11,6 +11,10 @@ const {
   findAllCountriesWhitPopulationGreaterThanOrEqual,
   findAllCountriesWhitPopulationLessThanOrEqual,
   findAllCountriesWhitPopulationBetween,
+  findAllCountriesOrderByNameAsc,
+  findAllCountriesOrderByNameDesc,
+  findAllCountriesOrderByPopulationAsc,
+  findAllCountriesOrderByPopulationDesc,
 } = require("../controllers/countryController");
 const countryRouter = Router();
 const axios = require("axios");
@@ -62,6 +66,42 @@ countryRouter.get("/", async (req, res) => {
     }
 
     return res.status(200).json(countries);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+countryRouter.get("/countriesByNameAsc", async (req, res) => {
+  try {
+    const countries = await findAllCountriesOrderByNameAsc();
+    res.status(200).json(countries);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+countryRouter.get("/countriesByNameDesc", async (req, res) => {
+  try {
+    const countries = await findAllCountriesOrderByNameDesc();
+    res.status(200).json(countries);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+countryRouter.get("/countriesByPopulationAsc", async (req, res) => {
+  try {
+    const countries = await findAllCountriesOrderByPopulationAsc();
+    res.status(200).json(countries);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+countryRouter.get("/countriesByPopulationDesc", async (req, res) => {
+  try {
+    const countries = await findAllCountriesOrderByPopulationDesc();
+    res.status(200).json(countries);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
