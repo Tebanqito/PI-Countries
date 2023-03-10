@@ -29,6 +29,38 @@ const getCountryById = async (id) => {
   return country;
 };
 
+const findAllCountriesOrderByPopulationDesc = async () => {
+  const countries = await Country.findAll({
+    order: [["poblacion", "DESC"]],
+    include: [Activity],
+  });
+  return countries;
+};
+
+const findAllCountriesOrderByPopulationAsc = async () => {
+  const countries = await Country.findAll({
+    order: [["poblacion", "ASC"]],
+    include: [Activity],
+  });
+  return countries;
+};
+
+const findAllCountriesOrderByNameDesc = async () => {
+  const countries = await Country.findAll({
+    order: [["name", "DESC"]],
+    include: [Activity],
+  });
+  return countries;
+};
+
+const findAllCountriesOrderByNameAsc = async () => {
+  const countries = await Country.findAll({
+    order: [["name", "ASC"]],
+    include: [Activity],
+  });
+  return countries;
+};
+
 const findAllCountriesByActivityId = async (activityId) => {
   const activity = await Activity.findByPk(activityId);
   const countries = await activity.getCountries({ include: [Activity] });
@@ -131,4 +163,8 @@ module.exports = {
   findAllCountriesWhitPopulationGreaterThanOrEqual,
   findAllCountriesWhitPopulationLessThanOrEqual,
   findAllCountriesWhitPopulationBetween,
+  findAllCountriesOrderByNameDesc,
+  findAllCountriesOrderByNameAsc,
+  findAllCountriesOrderByPopulationDesc,
+  findAllCountriesOrderByPopulationAsc
 };
