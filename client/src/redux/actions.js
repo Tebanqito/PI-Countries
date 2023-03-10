@@ -243,7 +243,7 @@ export const getActivitiesByCountryId = (countryId) => {
 export const updateActivityById = (id) => {
   return function (dispatch) {
     axios
-      .get(`http://localhost:3001/activities/update/${id}`)
+      .put(`http://localhost:3001/activities/update/${id}`)
       .then((res) =>
         dispatch({ type: UPDATE_ACTIVITY_BY_ID, payload: res.data })
       );
@@ -253,7 +253,7 @@ export const updateActivityById = (id) => {
 export const deleteActivityById = (id) => {
   return function (dispatch) {
     axios
-      .get(`http://localhost:3001/activities/delete/${id}`)
+      .delete(`http://localhost:3001/activities/delete/${id}`)
       .then((res) =>
         dispatch({ type: DELETE_ACTIVITY_BY_ID, payload: res.data })
       );
