@@ -30,58 +30,26 @@ export const getCountries = () => {
 };
 
 export const findAllCountriesByContinent = (continent) => {
-  return function (dispatch) {
-    axios
-      .get(
-        `http://localhost:3001/countries/countriesByContinent?nameContinent=${continent}`
-      )
-      .then((res) =>
-        dispatch({ type: FIND_ALL_COUNTRIES_BY_CONTINENT, payload: res.data })
-      );
-  };
+  return { type: FIND_ALL_COUNTRIES_BY_CONTINENT, payload: continent };
 };
 
 export const findAllCountriesBySubRegion = (subRegion) => {
-  return function (dispatch) {
-    axios
-      .get(
-        `http://localhost:3001/countries/countriesBySubRegion?nameSubRegion=${subRegion}`
-      )
-      .then((res) =>
-        dispatch({ type: FIND_ALL_COUNTRIES_BY_SUBREGION, payload: res.data })
-      );
-  };
+  return { type: FIND_ALL_COUNTRIES_BY_SUBREGION, payload: subRegion };
 };
 
 export const findAllCountriesWhitPopulationGreaterThanOrEqual = (
   population
 ) => {
-  return function (dispatch) {
-    axios
-      .get(
-        `http://localhost:3001/countries/countriesWhitPopulationGreaterThanOrEqual?population=${population}`
-      )
-      .then((res) =>
-        dispatch({
-          type: FIND_ALL_COUNTRIES_WHIT_POPULATION_GREATER_THAN_OR_EQUAL,
-          payload: res.data,
-        })
-      );
+  return {
+    type: FIND_ALL_COUNTRIES_WHIT_POPULATION_GREATER_THAN_OR_EQUAL,
+    payload: population,
   };
 };
 
 export const findAllCountriesWhitPopulationLessThanOrEqual = (population) => {
-  return function (dispatch) {
-    axios
-      .get(
-        `http://localhost:3001/countries/countriesWhitPopulationLessThanOrEqual?population=${population}`
-      )
-      .then((res) =>
-        dispatch({
-          type: FIND_ALL_COUNTRIES_WHIT_POPULATION_LESS_THAN_OR_EQUAL,
-          payload: res.data,
-        })
-      );
+  return {
+    type: FIND_ALL_COUNTRIES_WHIT_POPULATION_LESS_THAN_OR_EQUAL,
+    payload: population,
   };
 };
 
@@ -89,32 +57,16 @@ export const findAllCountriesWhitPopulationBetween = (
   lessPopulation,
   greatPopulation
 ) => {
-  return function (dispatch) {
-    axios
-      .get(
-        `http://localhost:3001/countries/countriesWhitPopulationBetween?lessPopulation=${lessPopulation}&greatPopulation=${greatPopulation}`
-      )
-      .then((res) =>
-        dispatch({
-          type: FIND_ALL_COUNTRIES_WHIT_POPULATION_BETWEEN,
-          payload: res.data,
-        })
-      );
+  return {
+    type: FIND_ALL_COUNTRIES_WHIT_POPULATION_BETWEEN,
+    payload: { less: lessPopulation, great: greatPopulation },
   };
 };
 
 export const findAllCountriesByActivityName = (activityName) => {
-  return function (dispatch) {
-    axios
-      .get(
-        `http://localhost:3001/countries/countriesByActivityName?nameActivity=${activityName}`
-      )
-      .then((res) =>
-        dispatch({
-          type: FIND_ALL_COUNTRIES_BY_ACTIVITY_NAME,
-          payload: res.data,
-        })
-      );
+  return {
+    type: FIND_ALL_COUNTRIES_BY_ACTIVITY_NAME,
+    payload: activityName,
   };
 };
 
@@ -138,7 +90,7 @@ export const cleanCountries = () => {
 export const getCountryDetail = (id) => (dispatch) => {
   return axios
     .get(`http://localhost:3001/countries/${id}`)
-    .then((data) => dispatch({ type: GET_COUNTRY_DETAIL, payload: data.data }))
+    .then((data) => dispatch({ type: GET_COUNTRY_DETAIL, payload: data.data }));
 };
 
 export const getActivities = () => {
