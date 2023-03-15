@@ -52,32 +52,42 @@ export const reducer = (state = initialState, action) => {
     case FIND_ALL_COUNTRIES_BY_ACTIVITY_NAME:
       return {
         ...state,
-        countries: action.payload,
+        countries: state.countries.filter(
+          (c) => c.Activity.name === action.payload
+        ),
       };
     case FIND_ALL_COUNTRIES_BY_CONTINENT:
       return {
         ...state,
-        countries: action.payload,
+        countries: state.countries.filter(
+          (c) => c.continent === action.payload
+        ),
       };
     case FIND_ALL_COUNTRIES_BY_SUBREGION:
       return {
         ...state,
-        countries: action.payload,
+        countries: state.countries.filter(
+          (c) => c.subRegion === action.payload
+        ),
       };
     case FIND_ALL_COUNTRIES_WHIT_POPULATION_GREATER_THAN_OR_EQUAL:
       return {
         ...state,
-        countries: action.payload,
+        countries: state.countries.filter((c) => c.poblacion >= action.payload),
       };
     case FIND_ALL_COUNTRIES_WHIT_POPULATION_LESS_THAN_OR_EQUAL:
       return {
         ...state,
-        countries: action.payload,
+        countries: state.countries.filter((c) => c.poblacion <= action.payload),
       };
     case FIND_ALL_COUNTRIES_WHIT_POPULATION_BETWEEN:
       return {
         ...state,
-        countries: action.payload,
+        countries: state.countries.filter(
+          (c) =>
+            c.poblacion >= action.payload.less &&
+            c.poblacion <= action.payload.great
+        ),
       };
     case GET_ACTIVITIES:
       return {
