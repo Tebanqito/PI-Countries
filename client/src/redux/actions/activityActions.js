@@ -66,3 +66,13 @@ export const getActivitiesByCountryId = createAsyncThunk(
     return response.data;
   }
 );
+
+export const updateActivityById = createAsyncThunk(
+  "activities/updateActivityById",
+  async (activityId) => {
+    const response = await axios.put(
+      `http://localhost:3001/activities/update/${activityId}`
+    );
+    return response.data;
+  }
+);
