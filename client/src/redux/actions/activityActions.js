@@ -56,3 +56,13 @@ export const getActivitiesByCountryName = createAsyncThunk(
     return response.data;
   }
 );
+
+export const getActivitiesByCountryId = createAsyncThunk(
+  "activities/getActivitiesByCountryId",
+  async (countryId) => {
+    const response = await axios.get(
+      `http://localhost:3001/activities/getActivitiesByCountryId/${countryId}`
+    );
+    return response.data;
+  }
+);
