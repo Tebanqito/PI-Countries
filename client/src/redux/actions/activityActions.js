@@ -36,3 +36,13 @@ export const getActivitiesBySeason = createAsyncThunk(
     return response.data;
   }
 );
+
+export const getActivitiesByName = createAsyncThunk(
+  "activities/getActivitiesByName",
+  async (name) => {
+    const response = await axios.get(
+      `http://localhost:3001/activities/getActivitiesByName?name=${name}`
+    );
+    return response.data;
+  }
+);
