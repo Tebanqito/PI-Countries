@@ -26,3 +26,13 @@ export const getActivitiesByDifficulty = createAsyncThunk(
     return response.data;
   }
 );
+
+export const getActivitiesBySeason = createAsyncThunk(
+  "activities/getActivitiesBySeason",
+  async (season) => {
+    const response = await axios.get(
+      `http://localhost:3001/activities/getActivitiesBySeason?season=${season}`
+    );
+    return response.data;
+  }
+);
