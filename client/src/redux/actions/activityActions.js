@@ -76,3 +76,13 @@ export const updateActivityById = createAsyncThunk(
     return response.data;
   }
 );
+
+export const deleteActivityById = createAsyncThunk(
+  "activities/deleteActivityById",
+  async (activityId) => {
+    const response = await axios.delete(
+      `http://localhost:3001/activities/delete/${activityId}`
+    );
+    return response.data;
+  }
+);
