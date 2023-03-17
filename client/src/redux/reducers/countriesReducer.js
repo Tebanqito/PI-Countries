@@ -160,6 +160,17 @@ const countriesSlice = createSlice({
       .addCase(getCountryByName.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
+      })
+      .addCase(getCountriesByNameAsc.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(getCountriesByNameAsc.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.list = action.payload(state.list);
+      })
+      .addCase(getCountriesByNameAsc.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
       });
   },
 });
