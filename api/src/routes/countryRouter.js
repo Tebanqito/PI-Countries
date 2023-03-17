@@ -17,6 +17,7 @@ const {
   findAllCountriesOrderByPopulationDesc,
 } = require("../controllers/countryController");
 const countryRouter = Router();
+const { Country } = require("../db");
 const axios = require("axios");
 
 countryRouter.get("/", async (req, res) => {
@@ -37,28 +38,28 @@ countryRouter.get("/", async (req, res) => {
         const countries = res.data;
 
         countries.forEach(async (element) => {
-          // await Country.create({
-          //     id: element.cca3,
-          //     name: element.name.official ? element.name.official : element.name.common,
-          //     imgFlag: element.flags ? element.flags[0] : element.flag,
-          //     continent: element.region ? element.region : element.continents[0],
-          //     capital: element.capital ? element.capital[0] : "No posee capital",
-          //     subRegion: element.subregion,
-          //     area: element.area,
-          //     poblacion: element.population
-          // });
-          await createCountry({
-            id: element.cca3,
-            name: element.name.official
-              ? element.name.official
-              : element.name.common,
-            imgFlag: element.flags ? element.flags[0] : element.flag,
-            continent: element.region ? element.region : element.continents[0],
-            capital: element.capital ? element.capital[0] : "No posee capital",
-            subRegion: element.subregion,
-            area: element.area,
-            poblacion: element.population,
+          await Country.create({
+              id: element.cca3,
+              name: element.name.official ? element.name.official : element.name.common,
+              imgFlag: element.flags ? element.flags[0] : element.flag,
+              continent: element.region ? element.region : element.continents[0],
+              capital: element.capital ? element.capital[0] : "No posee capital",
+              subRegion: element.subregion,
+              area: element.area,
+              poblacion: element.population
           });
+          // await createCountry({
+          //   id: element.cca3,
+          //   name: element.name.official
+          //     ? element.name.official
+          //     : element.name.common,
+          //   imgFlag: element.flags ? element.flags[0] : element.flag,
+          //   continent: element.region ? element.region : element.continents[0],
+          //   capital: element.capital ? element.capital[0] : "No posee capital",
+          //   subRegion: element.subregion,
+          //   area: element.area,
+          //   poblacion: element.population,
+          // });
         });
       });
 
