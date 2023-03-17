@@ -10,10 +10,12 @@
 // );
 import { configureStore } from "@reduxjs/toolkit";
 import countriesReducer from "./reducers/countriesReducer";
+import activityReducer from "./reducers/activityReducer";
 
 const store = configureStore({
   reducer: {
     countries: countriesReducer,
+    activities: activityReducer,
   },
 });
 
