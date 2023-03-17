@@ -9,6 +9,9 @@ import {
   getCountriesWhitPopulationBetween,
   getCountriesWhitPopulationGreaterThanOrEqual,
   getCountriesWhitPopulationLessThanOrEqual,
+  getCountryByName,
+  getCountriesByNameAsc,
+  getCountriesByNameDesc,
 } from "../actions/countriesActions";
 
 const countriesSlice = createSlice({
@@ -144,6 +147,17 @@ const countriesSlice = createSlice({
         state.list = action.payload;
       })
       .addCase(getCountriesByActivityName.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+      .addCase(getCountryByName.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(getCountryByName.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.detail = action.payload;
+      })
+      .addCase(getCountryByName.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       });
