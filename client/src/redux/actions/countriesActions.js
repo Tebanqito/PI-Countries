@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import Countries from "../../components/Countries";
 
 export const getCountries = createAsyncThunk(
   "countries/getCountries",
@@ -30,14 +31,26 @@ export const getCountryByName = createAsyncThunk(
 export const getCountriesByNameAsc = createAsyncThunk(
   "countries/getCountriesByNameAsc",
   async () => {
-    return "ASC";
+    return (countries) => {
+      return countries.sort((c1, c2) => {
+        if (c1.name < c2.name) return -1;
+        else if (c1.name > c2.name) return 1;
+        else return 0;
+      });
+    };
   }
 );
 
 export const getCountriesByNameDesc = createAsyncThunk(
   "countries/getCountriesByNameDesc",
   async () => {
-    return "DESC";
+    return (countries) => {
+      return countries.sort((c1, c2) => {
+        if (c1.name > c2.name) return -1;
+        else if (c1.name < c2.name) return 1;
+        else return 0;
+      });
+    };
   }
 );
 
