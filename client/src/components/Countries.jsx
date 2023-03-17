@@ -4,17 +4,19 @@ import {
     CardContainer,
     CardImage,
     NextPrevButton,
-    HomeLink
 } from "../styles/styles";
 
 const Countries = (props) => {
     const [currentPage, setCurrentPage] = useState(1);
 
-    let until = currentPage * 10;
-    const from = until - 10;
+    const countriesPerPage = currentPage === 1 ? 9 : 10;
+    const startIndex = (currentPage - 1) * countriesPerPage;
+    const endIndex = startIndex + countriesPerPage;
 
-    if (currentPage < 2) until = until - 1;
-    const countries = props.countries.slice(from, until);
+    const countries = props.countries.slice(startIndex, endIndex);
+
+    const numCountries = props.countries.length;
+    const finalPage = Math.ceil((numCountries - 9) / 10) + 1;
 
     const countriesToShow = countries.map(country => {
         return <li key={country.id}>
@@ -40,7 +42,7 @@ const Countries = (props) => {
             <h1>Countries</h1>
             <div>
                 {currentPage > 1 && <NextPrevButton onClick={prevHandler}>Prev</NextPrevButton>}
-                {currentPage < props.finalPage && <NextPrevButton onClick={nextHandler}>Next</NextPrevButton>}
+                {currentPage < finalPage && <NextPrevButton onClick={nextHandler}>Next</NextPrevButton>}
             </div>
 
             <ul>
@@ -49,7 +51,7 @@ const Countries = (props) => {
 
             <div>
                 {currentPage > 1 && <NextPrevButton onClick={prevHandler}>Prev</NextPrevButton>}
-                {currentPage < props.finalPage && <NextPrevButton onClick={nextHandler}>Next</NextPrevButton>}
+                {currentPage < finalPage && <NextPrevButton onClick={nextHandler}>Next</NextPrevButton>}
             </div>
         </>
     );
