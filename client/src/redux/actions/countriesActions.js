@@ -17,6 +17,13 @@ export const getCountryById = createAsyncThunk(
   }
 );
 
+export const getCountryByName = createAsyncThunk(
+  "countries/getCountryByName",
+  async (name) => {
+    return name;
+  }
+);
+
 export const getCountriesByContinent = createAsyncThunk(
   "countries/getCountriesByContinent",
   async (continent) => {
