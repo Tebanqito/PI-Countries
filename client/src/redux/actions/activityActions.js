@@ -17,6 +17,14 @@ export const getActivities = createAsyncThunk(
   }
 );
 
+export const getActivityById = createAsyncThunk(
+  "activities/getActivityById",
+  async (id) => {
+    const response = await axios.get(`http://localhost:3001/activities/${id}`);
+    return response.data;
+  }
+);
+
 export const getActivitiesByDifficulty = createAsyncThunk(
   "activities/getActivitiesByDifficulty",
   async (difficlty) => {
