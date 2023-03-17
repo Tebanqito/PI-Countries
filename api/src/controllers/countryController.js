@@ -118,12 +118,12 @@ const findAllCountriesWhitPopulationBetween = async (
   return countries;
 };
 
-const findAllCountriesByName = async (name) => {
-  const countries = await Country.findAll({
+const getCountryByName = async (name) => {
+  const country = await Country.findOne({
     where: { name: { [Op.iLike]: `%${name}%` } },
     include: [Activity],
   });
-  return countries;
+  return country;
 };
 
 const findAllCountries = async () => {
@@ -154,7 +154,7 @@ const findAllCountries = async () => {
 module.exports = {
   createCountry,
   getCountryById,
-  findAllCountriesByName,
+  getCountryByName,
   findAllCountries,
   findAllCountriesByActivityId,
   findAllCountriesByActivityName,
