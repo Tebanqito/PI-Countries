@@ -49,7 +49,9 @@ const countriesSlice = createSlice({
       })
       .addCase(getCountriesByContinent.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.list = state.list.filter((c) => c.continent === action.payload);
+        state.list = state.list.filter((c) =>
+          c.continent.toLowerCase().includes(action.payload.toLowerCase())
+        );
       })
       .addCase(getCountriesByContinent.rejected, (state, action) => {
         state.status = "failed";
@@ -60,7 +62,9 @@ const countriesSlice = createSlice({
       })
       .addCase(getCountriesBySubRegion.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.list = state.list.filter((c) => c.subRegion === action.payload);
+        state.list = state.list.filter((c) =>
+          c.subRegion.toLowerCase().includes(action.payload.toLowerCase())
+        );
       })
       .addCase(getCountriesBySubRegion.rejected, (state, action) => {
         state.status = "failed";
