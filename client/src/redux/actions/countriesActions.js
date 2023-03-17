@@ -20,7 +20,10 @@ export const getCountryById = createAsyncThunk(
 export const getCountryByName = createAsyncThunk(
   "countries/getCountryByName",
   async (name) => {
-    return name;
+    const response = await axios.get(
+      `http://localhost:3001/countries?name=${name}`
+    );
+    return response.data;
   }
 );
 
