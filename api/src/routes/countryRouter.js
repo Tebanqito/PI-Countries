@@ -2,7 +2,7 @@ const { Router } = require("express");
 const {
   createCountry,
   getCountryById,
-  findAllCountriesByName,
+  getCountryByName,
   findAllCountries,
   findAllCountriesByActivityId,
   findAllCountriesByActivityName,
@@ -25,8 +25,8 @@ countryRouter.get("/", async (req, res) => {
 
   try {
     if (name) {
-      const countries = await findAllCountriesByName(name);
-      if (countries) return res.status(200).json(countries);
+      const country = await getCountryByName(name);
+      if (country) return res.status(200).json(country);
       throw new Error(
         `No se ah encontrado el pais ${name} en la base de datos.`
       );
