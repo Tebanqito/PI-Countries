@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import Countries from "../../components/Countries";
 
 export const getCountries = createAsyncThunk(
   "countries/getCountries",
