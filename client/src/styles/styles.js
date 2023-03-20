@@ -79,42 +79,12 @@ export const CardContainer = styled.div`
   margin: 20px;
 `;
 
-export const CardTitle = styled.p`
-  font-size: 24px;
-  color: white;
-  margin-top: 20px;
-`;
-
-export const CardLabel = styled.label`
-  font-size: 18px;
-  color: gray;
-  margin-top: 20px;
-`;
-
-export const CardList = styled.ul`
-  list-style: none;
-  color: white;
-  margin-top: 20px;
-`;
-
 export const CardImage = styled.img`
   width: 100%;
   height: 200px;
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 20px;
-`;
-
-export const CardDetailCotainer = styled.div`
-  display: grid;
-  place-items: center;
-  align-items: center;
-  width: 400px;
-  height: 550px;
-  background-color: #9370db;
-  border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  margin: 20px;
 `;
 
 export const HomeContainer = styled.div`
@@ -141,12 +111,6 @@ export const NextPrevButton = styled.button`
   font-size: 16px;
   border: none;
   cursor: pointer;
-`;
-
-export const Fondo = styled.div`
-  display: flex;
-  place-items: center;
-  background-color: #32cd32;
 `;
 
 export const ListItemFondo = styled.li`
@@ -190,4 +154,37 @@ export const BackgroundFilter = styled.div`
       margin-right: 1rem;
     }
   }
+`;
+
+export const ActivityItem = styled.i`
+  margin: 1rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`;
+
+export const ActivityName = styled.b`
+  color: #333;
+  font-size: 1.2rem;
+`;
+
+export const ActivityDifficulty = styled.p`
+  color: ${({ difficulty }) =>
+    difficulty === "Baja"
+      ? "#5cb85c"
+      : difficulty === "Media"
+      ? "#f0ad4e"
+      : "#d9534f"};
+`;
+
+export const ActivitiesList = styled.ul`
+  list-style-type: none;
+`;
+
+export const ActivityDuration = styled.p`
+  font-style: italic;
+`;
+
+export const ActivitySeason = styled.p`
+  text-transform: capitalize;
 `;
