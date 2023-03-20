@@ -1,65 +1,115 @@
-import { getCountries, cleanCountries, getCountryDetail } from "../redux/actions";
+import { getCountryById } from "../redux/actions/countriesActions";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import {
-    CardDetailCotainer,
-    CardTitle,
-    CardImage,
-    CardLabel,
-    CardList,
-    Fondo,
-    HomeLink,
-    ListItemFondo
-} from "../styles/styles"
+import Activities from "./Activities";
+import styled from "styled-components";
 
-const CountryDetail = (props) => {
-    const dispatch = useDispatch();
-    const { countryId } = useParams();
+const DetailContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #d8bfd8;
+`;
 
-    useEffect(() => {
-        // dispatch(getCountries());
-        dispatch(getCountryDetail(countryId));
-        return () => {
-            //dispatch(cleanCountries());
-        }
-    }, []);
+const Link = styled.a`
+  margin-right: 1rem;
+  margin-top: 5;
+  color: #fff;
+  text-decoration: none;
+  background-color: #007bff;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  &:hover {
+    background-color: #0062cc;
+  }
+`;
 
-    const country = useSelector(state => state.countryDetail);
-    console.log(country);
+const Title = styled.h1`
+  font-size: 2rem;
+  margin-top: 5;
+`;
 
-    // const countries = useSelector(state => { return state.countries });
-    // const country = countries.filter(c => c.id == countryId)[0];
+const InfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 2rem;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 5px;
+  background-color: #9370db;
+`;
 
-    return (
-        <Fondo>
-            <CardDetailCotainer>
-                <HomeLink href="/home">HOME</HomeLink>
-                <h1>Country Detail</h1>
-                <CardTitle><b>ID</b>: {country[0]?.id}</CardTitle>
-                <CardTitle><b>NOMBRE</b>: {country[0]?.name}</CardTitle>
-                <CardTitle><b>CAPITAL</b>: {country[0]?.capital}</CardTitle>
-                <CardTitle><b>SUBREGION</b>: {country[0]?.subRegion ? country[0]?.subRegion : "No posee subregion"}</CardTitle>
-                <CardTitle><b>AREA</b>: {country[0]?.area} Km2</CardTitle>
-                <CardTitle><b>POBLACION</b>: {country[0]?.poblacion}</CardTitle>
-                <Fondo>
-                <CardLabel><b>ACTIVIDADES TURISTICAS</b>:</CardLabel>
-                {country[0]?.Activities.length ? <CardList>
-                    {country[0]?.Activities.map(a => {
-                        return (<li key={a.id}>
-                            <CardTitle><b>NOMBRE</b>:{a.name}</CardTitle>
-                            <CardTitle><b>DIFICULTAD</b>:{a.difficulty}</CardTitle>
-                            <CardTitle><b>DURACION</b>:{a.duration}</CardTitle>
-                            <CardTitle><b>TEMPORADA</b>:{a.season}</CardTitle>
-                            <hr/>
-                        </li>);
-                    })}
-                </CardList> : "No posee actividades turisticas"}
-                </Fondo>
-                <CardImage src={country[0]?.imgFlag} alt={`Flag of ${country[0]?.name}`} />
-            </CardDetailCotainer>
-        </Fondo>
-    );
+const InfoTitle = styled.b`
+  margin-right: 1rem;
+`;
+
+const Image = styled.img`
+  width: 100%;
+  margin-top: 2rem;
+`;
+
+const NoActivitiesMessage = styled.p`
+  margin-top: 2rem;
+`;
+
+const CountryDetail = () => {
+  const dispatch = useDispatch();
+  const { countryId } = useParams();
+  const country = useSelector((state) => state.countries.detail);
+
+  useEffect(() => {
+    dispatch(getCountryById(countryId));
+  }, []);
+
+  return (
+    <DetailContainer>
+      <div>
+        <Link href="/home">HOME</Link>
+        <Title>Country Detail</Title>
+      </div>
+
+      <InfoContainer>
+        <p>
+          <InfoTitle>ID</InfoTitle>: {country?.id}
+        </p>
+        <p>
+          <InfoTitle>NAME</InfoTitle>: {country?.name}
+        </p>
+        <p>
+          <InfoTitle>CAPITAL</InfoTitle>: {country?.capital}
+        </p>
+        <p>
+          <InfoTitle>SUBREGION</InfoTitle>:{" "}
+          {country?.subRegion ? country?.subRegion : "No posee subregion"}
+        </p>
+        <p>
+          <InfoTitle>AREA</InfoTitle>: {country?.area} Km2
+        </p>
+        <p>
+          <InfoTitle>POPULATION</InfoTitle>: {country?.poblacion}
+        </p>
+        <Image src={country?.imgFlag} alt={"Flag of " + country?.name + " "} />
+      </InfoContainer>
+
+      <label>
+        <InfoTitle>TOURIST ACTIVITIES</InfoTitle>:
+      </label>
+      {country?.Activities?.length ? (
+        <div>
+          {country?.Activities.length && (
+            <Activities activities={country?.Activities} />
+          )}
+        </div>
+      ) : (
+        <NoActivitiesMessage>
+          It does not have tourist activities
+        </NoActivitiesMessage>
+      )}
+    </DetailContainer>
+  );
 };
 
 export default CountryDetail;
