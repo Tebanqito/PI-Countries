@@ -7,7 +7,7 @@ export const FormContainer = styled.div`
   padding: 20px;
   height: 100vh;
   width: 100%;
-  background-color: #BDB76B;
+  background-color: #bdb76b;
 `;
 
 export const FormInput = styled.input`
@@ -43,12 +43,12 @@ export const LandingPageContainer = styled.div`
   flex-direction: column;
   align-items: center;
   height: 100vh;
-  background-color: #98FB98;
+  background-color: #98fb98;
 `;
 
 export const LandingPageTittle = styled.h1`
   font-size: 36px;
-  color: #4682B4;
+  color: #4682b4;
   margin-top: 20px;
 `;
 
@@ -63,7 +63,7 @@ export const LandingPageLink = styled.a`
   margin-top: 4px;
   padding: 4px;
   border-radius: 5px;
-  background-color: #00FF00;
+  background-color: #00ff00;
   text-decoration: none;
 `;
 
@@ -73,7 +73,7 @@ export const CardContainer = styled.div`
   align-items: center;
   width: 400px;
   height: 500px;
-  background-color: #9370DB;
+  background-color: #9370db;
   border-radius: 10px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   margin: 20px;
@@ -111,7 +111,7 @@ export const CardDetailCotainer = styled.div`
   align-items: center;
   width: 400px;
   height: 550px;
-  background-color: #9370DB;
+  background-color: #9370db;
   border-radius: 10px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   margin: 20px;
@@ -121,22 +121,14 @@ export const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #32CD32;
+  background-color: #d8bfd8;
 `;
 
 export const HomeLink = styled.a`
   margin-top: 4px;
   padding: 4px;
   border-radius: 5px;
-  background-color: #FF5733;
-  text-decoration: none;
-`;
-
-export const HomeButton = styled.button`
-  margin-top: 4px;
-  padding: 4px;
-  border-radius: 5px;
-  background-color: #FF5733;
+  background-color: #ff5733;
   text-decoration: none;
 `;
 
@@ -144,7 +136,7 @@ export const NextPrevButton = styled.button`
   width: 100%;
   padding: 10px;
   margin-top: 5px;
-  background-color: #4B0082;
+  background-color: #4b0082;
   color: white;
   font-size: 16px;
   border: none;
@@ -152,11 +144,50 @@ export const NextPrevButton = styled.button`
 `;
 
 export const Fondo = styled.div`
-  display:  flex;
+  display: flex;
   place-items: center;
-  background-color: #32CD32;
+  background-color: #32cd32;
 `;
 
 export const ListItemFondo = styled.li`
-  background-color: #32CD32;
+  background-color: #32cd32;
+`;
+
+export const BackgroundFilter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+
+  label {
+    margin-right: 1rem;
+    font-weight: bold;
+  }
+
+  select {
+    width: 20rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+
+  button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #0069d9;
+    }
+
+    &:not(:last-child) {
+      margin-right: 1rem;
+    }
+  }
 `;
