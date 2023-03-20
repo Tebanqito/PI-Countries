@@ -21,9 +21,9 @@ const Countries = (props) => {
     const countriesToShow = countries.map(country => {
         return <li key={country?.id}>
             <CardContainer>
-                <Link to={`/country/${country?.id}`}>Detalle</Link>
-                <p><b>NOMBRE</b>: {country?.name}</p>
-                <p><b>CONTINENTE</b>: {country?.continent}</p>
+                <Link to={`/country/${country?.id}`}>Detail</Link>
+                <p><b>NAME</b>: {country?.name}</p>
+                <p><b>CONTINENT</b>: {country?.continent}</p>
                 <CardImage src={country?.imgFlag} alt={`Flag of ${country?.name} `} />
             </CardContainer>
         </li>
