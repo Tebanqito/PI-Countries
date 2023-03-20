@@ -32,14 +32,14 @@ export default function Filter(props) {
 
   return (
     <BackgroundFilter>
-      <label htmlFor="">Continentes</label>
+      <label htmlFor="">Continents</label>
       <select
         name="continentes"
         id="continents"
         onChange={handelSelectContinent}
         multiple
       >
-        <option value="All">Todos los continentes</option>
+        <option value="All">All continents</option>
         {(isAllContinent === "Americas" || isAllContinent === "All") && (
           <option value="Americas">America</option>
         )}
@@ -60,11 +60,9 @@ export default function Filter(props) {
         )}
       </select>
 
-      <button onClick={handleOrderAsc}>
-        Ordenar por nombre de pais ascendentemente
-      </button>
+      <button onClick={handleOrderAsc}>Sort by country name ascending</button>
       <button onClick={handleOrderDesc}>
-        Ordenar por nombre de pais descendentemente
+        Sort by country name descendingly
       </button>
     </BackgroundFilter>
   );
