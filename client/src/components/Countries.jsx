@@ -19,12 +19,12 @@ const Countries = (props) => {
     const finalPage = Math.ceil((numCountries - 9) / 10) + 1;
 
     const countriesToShow = countries.map(country => {
-        return <li key={country.id}>
+        return <li key={country?.id}>
             <CardContainer>
-                <Link to={`/country/${country.id}`}>Detalle</Link>
-                <p><b>NOMBRE</b>: {country.name}</p>
-                <p><b>CONTINENTE</b>: {country.continent}</p>
-                <CardImage src={country.imgFlag} alt={`Flag of ${country.name}`} />
+                <Link to={`/country/${country?.id}`}>Detalle</Link>
+                <p><b>NOMBRE</b>: {country?.name}</p>
+                <p><b>CONTINENTE</b>: {country?.continent}</p>
+                <CardImage src={country?.imgFlag} alt={`Flag of ${country?.name} `} />
             </CardContainer>
         </li>
     });
