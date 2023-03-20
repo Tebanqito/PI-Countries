@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addActivity, getCountries } from "../redux/actions";
+import { addActivity } from "../redux/actions/activityActions";
+import { getCountries } from "../redux/actions/countriesActions";
 import {
     FormContainer,
     FormInput,
@@ -9,7 +10,8 @@ import {
 } from "../styles/styles";
 
 const Form = (props) => {
-    const countries = useSelector(state => state.countries);
+    const dispatch = useDispatch();
+    const countries = useSelector(state => state.countries.list);
     const [input, setInput] = useState({
         name: "",
         difficulty: "",
@@ -26,7 +28,6 @@ const Form = (props) => {
     const countriesToSelect = countries.map(c => {
         return <option value={c.id}>{c.name}</option>
     });
-    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getCountries());
@@ -35,13 +36,13 @@ const Form = (props) => {
     const validateInputs = (inputs) => {
         const errors = {};
 
-        if (!inputs.name) errors["name"] = "Se requiere un nombre";
-        if (inputs.difficulty > 5) errors["difficulty"] = "La dificultad no puede ser mayor a 5";
-        if (1 > inputs.difficulty) errors["difficulty"] = "La dificultad no puede ser menor a 1";
-        if (!inputs.duration) errors["duration"] = "Se requiere especificar la duracion de la actividad";
-        if (!inputs.season) errors["season"] = "Se requiere especificar la temporada de la actividad";
-        if (!["Invierno", "Verano", "Otoño", "Primavera"].includes(inputs.season)) {
-            errors["season"] = "La temporada no debe ser distinta de Verano, Invierno, Otoño o Primavera";
+        if (!inputs.name) errors["name"] = "A name is required";
+        if (inputs.difficulty > 5) errors["difficulty"] = "Difficulty cannot be higher than 5";
+        if (1 > inputs.difficulty) errors["difficulty"] = "Difficulty cannot be less than 1";
+        if (!inputs.duration) errors["duration"] = "It is required to specify the duration of the activity";
+        if (!inputs.season) errors["season"] = "It is required to specify the season of the activity";
+        if (!["Summer", "Autumn", "Winter", "Spring"].includes(inputs.season)) {
+            errors["season"] = "The season must not be different from Summer, Winter, Autumn or Spring";
         }
 
         return errors;
@@ -102,30 +103,30 @@ const Form = (props) => {
     return (
         <>
             <FormContainer>
-                <h1>Creacion de Actividad Turistica</h1>
-                <label>Nombre: </label>
+                <h1>Creation of Tourist Activity</h1>
+                <label>Name: </label>
                 <FormInput type='text' name='name' value={input.name} onChange={handleInputChange}></FormInput>
                 {errors.name && <p>{errors.name}</p>}
 
-                <label>Dificultad: </label>
+                <label>Difficulty: </label>
                 <FormInput type='number' name='difficulty' value={input.difficulty} onChange={handleInputChange}></FormInput>
                 {errors.difficulty && <p>{errors.difficulty}</p>}
 
-                <label>Duracion: </label>
+                <label>Duration: </label>
                 <FormInput type='text' name='duration' value={input.duration} onChange={handleInputChange}></FormInput>
                 {errors.duration && <p>{errors.duration}</p>}
 
-                <label>Temporada: </label>
+                <label>Season: </label>
                 <FormInput type="text" name='season' value={input.season} onChange={handleInputChange}></FormInput>
                 {errors.season && <p>{errors.season}</p>}
 
-                <label htmlFor="">Paises</label>
+                <label htmlFor="">Countries where it develops</label>
                 <FormSelect name="paises" id="ps" onChange={handleSelect} multiple>
                     {countriesToSelect}
                 </FormSelect>
-                {!countriesSelected.length && <p>Debe seleccionar al menos un pais</p>}
+                {!countriesSelected.length && <p>You must select at least one country</p>}
 
-                <FormButton type='submit' onClick={handleSubmit}>Crear Actividad</FormButton>
+                <FormButton type='submit' onClick={handleSubmit}>Create Activity</FormButton>
             </FormContainer>
         </>
     );
