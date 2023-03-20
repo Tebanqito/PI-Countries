@@ -5,7 +5,7 @@ import Filter from "./Filter";
 import Countries from "./Countries";
 import { HomeContainer } from "../styles/styles";
 
-export default function Home() {
+  const Home = () => {
   const dispatch = useDispatch();
   const countries = useSelector((state) => state.countries.list);
   const [isAllCountries, setIsAllCountries] = useState(true);
@@ -28,4 +28,6 @@ export default function Home() {
       )}
     </HomeContainer>
   );
-}
+};
+
+export default Home;
