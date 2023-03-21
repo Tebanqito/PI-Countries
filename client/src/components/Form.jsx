@@ -1,17 +1,22 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addActivity } from "../redux/actions/activityActions";
+import { addActivity, getActivities } from "../redux/actions/activityActions";
 import { getCountries } from "../redux/actions/countriesActions";
 import {
   FormContainer,
-  FormInput,
   FormButton,
+  FormInput,
+  FormLabel,
+  FormOption,
   FormSelect,
+  FormTitle,
+  ErrorMessage,
 } from "../styles/styles";
 
 const Form = (props) => {
   const dispatch = useDispatch();
   const countries = useSelector((state) => state.countries.list);
+  const activities = useSelector((state) => state.activities.list);
   const [input, setInput] = useState({
     name: "",
     difficulty: "",
@@ -24,13 +29,18 @@ const Form = (props) => {
     duration: "",
     season: "",
   });
-  const [countriesSelected, setCountriesSelected] = useState([]);
+  const [countriesId, setCountriesId] = useState([]);
   const countriesToSelect = countries.map((c) => {
-    return <option value={c.id}>{c.name}</option>;
+    return (
+      <FormOption key={c.id} value={c.id}>
+        {c.name}
+      </FormOption>
+    );
   });
 
   useEffect(() => {
     dispatch(getCountries());
+    dispatch(getActivities());
   }, []);
 
   const validateInputs = (inputs) => {
@@ -69,24 +79,37 @@ const Form = (props) => {
   };
 
   const handleSelect = (event) => {
-    const countrySelected = event.target.value;
-    setCountriesSelected((prevState) => {
-      return [...prevState, countrySelected];
-    });
+    const selectedOptions = event.target.options;
+    const selectedCountriesId = [];
+
+    for (let i = 0; i < selectedOptions.length; i++) {
+      if (selectedOptions[i].selected) {
+        selectedCountriesId.push(selectedOptions[i].value);
+      }
+    }
+
+    setCountriesId(selectedCountriesId);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!countriesSelected.length) {
-      window.alert("Debe seleccionar al menos un pais");
+    if (!countriesId.length) {
+      window.alert("Debe seleccionar al menos un pais.");
       return;
     }
 
     if (!Object.keys(errors).length) {
       const { name, difficulty, duration, season } = input;
+      const activitiesNames = activities.map((a) => a.name.toLowerCase());
+
+      if (activitiesNames.includes(name.toLowerCase())) {
+        window.alert(`La actividad ${name} ya existe en la BDD.`);
+        return;
+      }
+
       dispatch(
-        addActivity(countriesSelected, name, difficulty, duration, season)
+        addActivity({ countriesId, name, difficulty, duration, season })
       );
 
       setInput({
@@ -109,58 +132,59 @@ const Form = (props) => {
   };
 
   return (
-    <>
-      <FormContainer>
-        <h1>Creation of Tourist Activity</h1>
-        <label>Name: </label>
-        <FormInput
-          type="text"
-          name="name"
-          value={input.name}
-          onChange={handleInputChange}
-        ></FormInput>
-        {errors.name && <p>{errors.name}</p>}
+    <FormContainer>
+      <FormTitle>Creation of Tourist Activity</FormTitle>
+      <FormLabel>Name:</FormLabel>
+      <FormInput
+        type="text"
+        name="name"
+        value={input.name}
+        onChange={handleInputChange}
+      />
+      {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
 
-        <label>Difficulty: </label>
-        <FormInput
-          type="number"
-          name="difficulty"
-          value={input.difficulty}
-          onChange={handleInputChange}
-        ></FormInput>
-        {errors.difficulty && <p>{errors.difficulty}</p>}
+      <FormLabel>Difficulty:</FormLabel>
+      <FormInput
+        type="number"
+        name="difficulty"
+        value={input.difficulty}
+        onChange={handleInputChange}
+      />
+      {errors.difficulty && <ErrorMessage>{errors.difficulty}</ErrorMessage>}
 
-        <label>Duration: </label>
-        <FormInput
-          type="text"
-          name="duration"
-          value={input.duration}
-          onChange={handleInputChange}
-        ></FormInput>
-        {errors.duration && <p>{errors.duration}</p>}
+      <FormLabel>Duration:</FormLabel>
+      <FormInput
+        type="text"
+        name="duration"
+        value={input.duration}
+        onChange={handleInputChange}
+      />
+      {errors.duration && <ErrorMessage>{errors.duration}</ErrorMessage>}
 
-        <label>Season: </label>
-        <FormInput
-          type="text"
-          name="season"
-          value={input.season}
-          onChange={handleInputChange}
-        ></FormInput>
-        {errors.season && <p>{errors.season}</p>}
+      <FormLabel>Season:</FormLabel>
+      <FormInput
+        type="text"
+        name="season"
+        value={input.season}
+        onChange={handleInputChange}
+      />
+      {errors.season && <ErrorMessage>{errors.season}</ErrorMessage>}
 
-        <label htmlFor="">Countries where it develops</label>
-        <FormSelect name="paises" id="ps" onChange={handleSelect} multiple>
-          {countriesToSelect}
-        </FormSelect>
-        {!countriesSelected.length && (
-          <p>You must select at least one country</p>
-        )}
+      <FormLabel htmlFor="">Countries where it develops</FormLabel>
+      <FormSelect
+        name="countries"
+        value={countriesId}
+        onChange={handleSelect}
+        multiple
+      >
+        {countriesToSelect}
+      </FormSelect>
+      {!countriesId.length && <p>You must select at least one country</p>}
 
-        <FormButton type="submit" onClick={handleSubmit}>
-          Create Activity
-        </FormButton>
-      </FormContainer>
-    </>
+      <FormButton type="submit" onClick={handleSubmit}>
+        Create Activity
+      </FormButton>
+    </FormContainer>
   );
 };
 
