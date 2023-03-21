@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const {
   getActivities,
+  getActivityById,
   createActivity,
   getActivitiesByCountryId,
   getActivitiesByCountryName,
@@ -12,7 +13,7 @@ const {
 } = require("../controllers/activityController");
 const activityRouter = Router();
 
-activityRouter.get("/getActivities", async (req, res) => {
+activityRouter.get("/", async (req, res) => {
   try {
     const touristActivities = await getActivities();
     res.status(200).json(touristActivities);
@@ -91,11 +92,25 @@ activityRouter.get("/getActivitiesByCountryId/:countryId", async (req, res) => {
   }
 });
 
+activityRouter.get("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    if (!id) throw new Error("El id esta indefinido.");
+
+    const activity = await getActivityById(id);
+    if (!activity) throw new Error(`No se encuentra ninguna actividad con el id ${id}.`);
+
+    res.status(200).json(activity);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 activityRouter.post("/", async (req, res) => {
   const { countriesId, name, difficulty, duration, season } = req.body;
 
   try {
-    console.log("estoy en /activities");
     if (
       ![countriesId.length, name, difficulty, duration, season].every(Boolean)
     ) {
