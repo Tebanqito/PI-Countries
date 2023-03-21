@@ -3,39 +3,80 @@ import styled from "styled-components";
 export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding: 20px;
   height: 100vh;
-  width: 100%;
-  background-color: #bdb76b;
+  background-color: #9370db;
+  padding: 2rem;
+  box-sizing: border-box;
+`;
+
+export const FormTitle = styled.h1`
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #000000;
+`;
+
+export const FormLabel = styled.label`
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #000000;
 `;
 
 export const FormInput = styled.input`
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
   width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  font-size: 16px;
-  border: none;
-  border-bottom: 2px solid lightgray;
+  margin-bottom: 1rem;
+
+  &:focus {
+    outline: none;
+    border-color: #6cb2eb;
+  }
+`;
+
+export const ErrorMessage = styled.p`
+  color: #f44336;
+  margin-top: 0.5rem;
 `;
 
 export const FormButton = styled.button`
-  width: 100%;
-  padding: 10px;
-  background-color: blue;
-  color: white;
-  font-size: 16px;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  background-color: #6cb2eb;
+  color: #fff;
   border: none;
+  border-radius: 4px;
   cursor: pointer;
+
+  &:hover {
+    background-color: #4a90e2;
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
 `;
 
 export const FormSelect = styled.select`
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
   width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  font-size: 16px;
-  border: 2px solid lightgray;
-  background-color: white;
+  margin-bottom: 1rem;
+
+  &:focus {
+    outline: none;
+    border-color: #6cb2eb;
+  }
+`;
+
+export const FormOption = styled.option`
+  font-size: 1.2rem;
 `;
 
 export const LandingPageContainer = styled.div`
