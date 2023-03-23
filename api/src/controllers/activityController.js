@@ -86,6 +86,13 @@ const deleteActivityById = async (id) => {
   return activityToDelete;
 };
 
+const unlinkCountry = async (activityId, countryId) => {
+  const activity = await Activity.findByPk(activityId);
+  const country = await Country.findByPk(countryId);
+  await activity.removeCountry(country);
+  return activity;
+};
+
 module.exports = {
   createActivity,
   getActivities,
@@ -97,4 +104,5 @@ module.exports = {
   getActivitiesByCountryName,
   updateActivityById,
   deleteActivityById,
+  unlinkCountry,
 };
