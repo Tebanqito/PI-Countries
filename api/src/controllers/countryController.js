@@ -141,7 +141,7 @@ const findAllCountries = async () => {
     include: [
       {
         model: Activity,
-        attributes: ["name", "difficulty", "duration", "season"],
+        attributes: ["id", "name", "difficulty", "duration", "season"],
         through: {
           attributes: [],
         },
