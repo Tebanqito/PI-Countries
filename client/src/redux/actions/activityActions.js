@@ -94,3 +94,13 @@ export const deleteActivityById = createAsyncThunk(
     return response.data;
   }
 );
+
+export const unlinkCountry = createAsyncThunk(
+  "activities/unlinkCountry",
+  async (data) => {
+    const response = await axios.put(
+      `http://localhost:3001/activities/unlinkCountry`, data
+    );
+    return response.data;
+  }
+);
