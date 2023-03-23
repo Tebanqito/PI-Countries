@@ -5,12 +5,24 @@ import {
   getCountriesByContinent,
   getCountriesByNameAsc,
   getCountriesByNameDesc,
+  getCountriesByActivityName,
+  getCountriesBySubRegion,
+  getCountriesWhitPopulationBetween,
+  getCountriesWhitPopulationGreaterThanOrEqual,
+  getCountriesWhitPopulationLessThanOrEqual,
+  getCountryByName,
 } from "../redux/actions/countriesActions";
 import { BackgroundFilter } from "../styles/styles";
 
 export default function Filter(props) {
   const dispatch = useDispatch();
   const [isAllContinent, setIsAllContinent] = useState("All");
+  const [input, setInput] = useState({
+    countryName: "",
+    countrySubRegion: "",
+    lessPopulation: 0,
+    greatPopulation: 0,
+  });
 
   const handelSelectContinent = (e) => {
     if (e.target.value === "All") {
@@ -22,12 +34,11 @@ export default function Filter(props) {
     }
   };
 
-  const handleOrderAsc = () => {
-    dispatch(getCountriesByNameAsc());
-  };
-
-  const handleOrderDesc = () => {
-    dispatch(getCountriesByNameDesc());
+  const handleInputChange = (event) => {
+    setInput({
+      ...input,
+      [event.target.name]: event.target.value,
+    });
   };
 
   return (
@@ -60,10 +71,21 @@ export default function Filter(props) {
         )}
       </select>
 
-      <button onClick={handleOrderAsc}>Sort by country name ascending</button>
-      <button onClick={handleOrderDesc}>
+      <button onClick={() => dispatch(getCountriesByNameAsc())}>Sort by country name ascending</button>
+      <button onClick={() => dispatch(getCountriesByNameDesc())}>
         Sort by country name descendingly
       </button>
+
+      <label htmlFor="">Filter by subregion</label>
+      <input value={input.countrySubRegion} type="text" name="countrySubRegion" onChange={handleInputChange} />
+      <button onClick={() => {
+        console.log(input.countrySubRegion);
+        dispatch(getCountriesBySubRegion(input.countrySubRegion));
+      }}>Find</button>
+
+      {/* <label htmlFor="">Filter by name</label>
+      <input value={input.countryName} type="text" name="countryName" onChange={handleInputChange} />
+      <button onClick={() => dispatch(getCountryByName(input.countryName))}>Find</button> */}
     </BackgroundFilter>
   );
 }
