@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   getCountries,
   getCountriesByContinent,
@@ -14,8 +15,10 @@ import {
 } from "../redux/actions/countriesActions";
 import { BackgroundFilter } from "../styles/styles";
 
-export default function Filter(props) {
+const Filter = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const country = useSelector((state) => state.countries.detail);
   const [isAllContinent, setIsAllContinent] = useState("All");
   const [input, setInput] = useState({
     countryName: "",
@@ -39,6 +42,11 @@ export default function Filter(props) {
       ...input,
       [event.target.name]: event.target.value,
     });
+  };
+
+  const handleClickCountryByName = () => {
+    dispatch(getCountryByName(input.countryName));
+    navigate(`/country/${country.id}`);
   };
 
   return (
@@ -78,14 +86,13 @@ export default function Filter(props) {
 
       <label htmlFor="">Filter by subregion</label>
       <input value={input.countrySubRegion} type="text" name="countrySubRegion" onChange={handleInputChange} />
-      <button onClick={() => {
-        console.log(input.countrySubRegion);
-        dispatch(getCountriesBySubRegion(input.countrySubRegion));
-      }}>Find</button>
+      <button onClick={() => dispatch(getCountriesBySubRegion(input.countrySubRegion))}>Find</button>
 
-      {/* <label htmlFor="">Filter by name</label>
+      <label htmlFor="">Filter by name</label>
       <input value={input.countryName} type="text" name="countryName" onChange={handleInputChange} />
-      <button onClick={() => dispatch(getCountryByName(input.countryName))}>Find</button> */}
+      <button onClick={handleClickCountryByName}>Find</button>
     </BackgroundFilter>
   );
 }
+
+export default Filter;
