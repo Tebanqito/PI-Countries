@@ -79,7 +79,8 @@ export const updateActivityById = createAsyncThunk(
   "activities/updateActivityById",
   async (activityId, attributes) => {
     const response = await axios.put(
-      `http://localhost:3001/activities/update/${activityId}`, attributes
+      `http://localhost:3001/activities/update/${activityId}`,
+      attributes
     );
     return response.data;
   }
@@ -99,7 +100,19 @@ export const unlinkCountry = createAsyncThunk(
   "activities/unlinkCountry",
   async (data) => {
     const response = await axios.put(
-      `http://localhost:3001/activities/unlinkCountry`, data
+      `http://localhost:3001/activities/unlinkCountry`,
+      data
+    );
+    return response.data;
+  }
+);
+
+export const linkCountry = createAsyncThunk(
+  "activities/linkCountry",
+  async (data) => {
+    const response = await axios.put(
+      `http://localhost:3001/activities/linkCountry`,
+      data
     );
     return response.data;
   }
