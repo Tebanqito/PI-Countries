@@ -28,6 +28,9 @@ const getActivities = async () => {
     include: {
       model: Country,
       attributes: ["id", "name", "continent", "subRegion"],
+      through: {
+        attributes: [],
+      },
     },
   });
   return activities;
