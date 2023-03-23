@@ -11,6 +11,7 @@ const {
   updateActivityById,
   deleteActivityById,
   unlinkCountry,
+  linkCountry,
 } = require("../controllers/activityController");
 const activityRouter = Router();
 
@@ -179,6 +180,24 @@ activityRouter.put("/unlinkCountry", async (req, res) => {
     if (!countryId || !activityId) throw new Error("Datos incompletos.");
 
     const activity = await unlinkCountry(activityId, countryId);
+    if (!activity)
+      throw new Error(
+        `No seencuentra ninguna actividad con el id ${activityId} en la BDD.`
+      );
+
+    res.status(200).json(activity);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+activityRouter.put("/linkCountry", async (req, res) => {
+  const { countryId, activityId } = req.body;
+
+  try {
+    if (!countryId || !activityId) throw new Error("Datos incompletos.");
+
+    const activity = await linkCountry(activityId, countryId);
     if (!activity)
       throw new Error(
         `No seencuentra ninguna actividad con el id ${activityId} en la BDD.`
