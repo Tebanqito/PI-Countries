@@ -9,6 +9,7 @@ import {
   getActivitiesBySeason,
   getActivityById,
   unlinkCountry,
+  linkCountry,
 } from "../actions/activityActions";
 
 const activitySlice = createSlice({
@@ -118,6 +119,17 @@ const activitySlice = createSlice({
         state.detail = action.payload;
       })
       .addCase(unlinkCountry.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+      .addCase(linkCountry.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(linkCountry.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.detail = action.payload;
+      })
+      .addCase(linkCountry.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       });
