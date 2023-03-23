@@ -240,3 +240,47 @@ export const ActivityDuration = styled.p`
 export const ActivitySeason = styled.p`
   text-transform: capitalize;
 `;
+
+export const FilterSearchButton = styled.button`
+  margin-top: 5px;
+  background-color: #0077b6;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    margin-top: 5px;
+    background-color: #023e8a;
+  }
+`;
+
+export const FilterContinentSelect = styled.select`
+  margin-top: 5px;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-bottom: 16px;
+  color: #333;
+  border: 2px solid #ccc;
+`;
+
+export const FilterLabel = styled.label`
+  margin-top: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 8px;
+`;
+
+export const FilterContainer = styled.div`
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 32px;
+  padding: 16px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+`;
