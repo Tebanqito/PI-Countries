@@ -10,6 +10,7 @@ const {
   getActivityByName,
   updateActivityById,
   deleteActivityById,
+  unlinkCountry,
 } = require("../controllers/activityController");
 const activityRouter = Router();
 
@@ -99,7 +100,8 @@ activityRouter.get("/:id", async (req, res) => {
     if (!id) throw new Error("El id esta indefinido.");
 
     const activity = await getActivityById(id);
-    if (!activity) throw new Error(`No se encuentra ninguna actividad con el id ${id}.`);
+    if (!activity)
+      throw new Error(`No se encuentra ninguna actividad con el id ${id}.`);
 
     res.status(200).json(activity);
   } catch (error) {
@@ -165,6 +167,24 @@ activityRouter.delete("/delete/:id", async (req, res) => {
       );
 
     res.status(200).json(activityDeleted);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+activityRouter.put("/unlinkCountry", async (req, res) => {
+  const { countryId, activityId } = req.body;
+
+  try {
+    if (!countryId || !activityId) throw new Error("Datos incompletos.");
+
+    const activity = await unlinkCountry(activityId, countryId);
+    if (!activity)
+      throw new Error(
+        `No seencuentra ninguna actividad con el id ${activityId} en la BDD.`
+      );
+
+    res.status(200).json(activity);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
