@@ -1,5 +1,19 @@
 import styled from "styled-components";
 
+export const StartButton = styled.button`
+  margin-top: 5px;
+  background-color: #7cfc00;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    margin-top: 5px;
+    background-color: #00ff00;
+  }
+`;
+
 export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
