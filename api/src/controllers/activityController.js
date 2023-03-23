@@ -24,7 +24,12 @@ const createActivity = async (
 };
 
 const getActivities = async () => {
-  const activities = await Activity.findAll();
+  const activities = await Activity.findAll({
+    include: {
+      model: Country,
+      attributes: ["id", "name", "continent", "subRegion"],
+    },
+  });
   return activities;
 };
 
