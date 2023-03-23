@@ -109,9 +109,7 @@ export const getCountriesWhitPopulationLessThanOrEqual = createAsyncThunk(
 
 export const getCountriesWhitPopulationBetween = createAsyncThunk(
   "countries/getCountriesWhitPopulationBetween",
-  async (lessPopulation, greatPopulation) => {
-    return { less: lessPopulation, great: greatPopulation };
-  }
+  async (populations) => populations
 );
 
 export const getCountriesByActivityName = createAsyncThunk(
