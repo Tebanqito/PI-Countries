@@ -77,9 +77,9 @@ export const getActivitiesByCountryId = createAsyncThunk(
 
 export const updateActivityById = createAsyncThunk(
   "activities/updateActivityById",
-  async (activityId) => {
+  async (activityId, attributes) => {
     const response = await axios.put(
-      `http://localhost:3001/activities/update/${activityId}`
+      `http://localhost:3001/activities/update/${activityId}`, attributes
     );
     return response.data;
   }
