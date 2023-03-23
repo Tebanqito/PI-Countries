@@ -154,6 +154,17 @@ export const NextPrevButton = styled.button`
   cursor: pointer;
 `;
 
+export const DetailButton = styled.button`
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  background-color: #daa520;
+  color: black;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+`;
+
 export const ListItemFondo = styled.li`
   background-color: #32cd32;
 `;
