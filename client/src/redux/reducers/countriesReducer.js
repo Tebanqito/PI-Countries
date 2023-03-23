@@ -12,6 +12,7 @@ import {
   getCountryByName,
   getCountriesByNameAsc,
   getCountriesByNameDesc,
+  getCountriesByPopulationAsc,
 } from "../actions/countriesActions";
 
 const countriesSlice = createSlice({
@@ -66,7 +67,9 @@ const countriesSlice = createSlice({
       .addCase(getCountriesBySubRegion.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.list = state.list.filter((c) =>
-          String(c.subRegion).toLowerCase().includes(String(action.payload).toLowerCase())
+          String(c.subRegion)
+            .toLowerCase()
+            .includes(String(action.payload).toLowerCase())
         );
       })
       .addCase(getCountriesBySubRegion.rejected, (state, action) => {
@@ -180,6 +183,17 @@ const countriesSlice = createSlice({
         state.list = action.payload(state.list);
       })
       .addCase(getCountriesByNameDesc.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+      .addCase(getCountriesByPopulationAsc.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(getCountriesByPopulationAsc.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.list = action.payload(state.list);
+      })
+      .addCase(getCountriesByPopulationAsc.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       });
