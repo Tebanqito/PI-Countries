@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
     CardContainer,
     CardImage,
     NextPrevButton,
+    DetailButton
 } from "../styles/styles";
 
 const Countries = (props) => {
+    const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
 
     const countriesPerPage = currentPage === 1 ? 9 : 10;
@@ -21,7 +23,7 @@ const Countries = (props) => {
     const countriesToShow = countries.map(country => {
         return <li key={country?.id}>
             <CardContainer>
-                <Link to={`/country/${country?.id}`}>Detail</Link>
+                <DetailButton onClick={() => navigate(`/country/${country?.id}`)}>DETAIL</DetailButton>
                 <p><b>NAME</b>: {country?.name}</p>
                 <p><b>CONTINENT</b>: {country?.continent}</p>
                 <CardImage src={country?.imgFlag} alt={`Flag of ${country?.name} `} />
