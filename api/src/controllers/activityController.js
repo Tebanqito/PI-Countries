@@ -87,7 +87,15 @@ const deleteActivityById = async (id) => {
 };
 
 const unlinkCountry = async (activityId, countryId) => {
-  const activity = await Activity.findByPk(activityId);
+  const activity = await Activity.findByPk(activityId, {
+    include: {
+      model: Country,
+      attributes: ["id", "name", "continent", "subRegion"],
+      through: {
+        attributes: [],
+      },
+    },
+  });
   const country = await Country.findByPk(countryId);
   await activity.removeCountry(country);
   await country.removeActivity(activity);
@@ -95,7 +103,15 @@ const unlinkCountry = async (activityId, countryId) => {
 };
 
 const linkCountry = async (activityId, countryId) => {
-  const activity = await Activity.findByPk(activityId);
+  const activity = await Activity.findByPk(activityId, {
+    include: {
+      model: Country,
+      attributes: ["id", "name", "continent", "subRegion"],
+      through: {
+        attributes: [],
+      },
+    },
+  });
   const country = await Country.findByPk(countryId);
   await activity.addCountry(country);
   await country.addActivity(activity);
