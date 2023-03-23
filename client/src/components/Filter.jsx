@@ -6,6 +6,8 @@ import {
   getCountriesByContinent,
   getCountriesByNameAsc,
   getCountriesByNameDesc,
+  getCountriesByPopulationAsc,
+  getCountriesByPopulationDesc,
   getCountriesByActivityName,
   getCountriesBySubRegion,
   getCountriesWhitPopulationBetween,
@@ -13,7 +15,13 @@ import {
   getCountriesWhitPopulationLessThanOrEqual,
   getCountryByName,
 } from "../redux/actions/countriesActions";
-import { BackgroundFilter } from "../styles/styles";
+import {
+  FilterSearchButton,
+  FilterContainer,
+  FilterContinentSelect,
+  FilterLabel,
+  StartButton,
+} from "../styles/styles";
 
 const Filter = (props) => {
   const dispatch = useDispatch();
@@ -23,8 +31,11 @@ const Filter = (props) => {
   const [input, setInput] = useState({
     countryName: "",
     countrySubRegion: "",
+    activityName: "",
     lessPopulation: 0,
     greatPopulation: 0,
+    min: 0,
+    max: 0,
   });
 
   const handelSelectContinent = (e) => {
@@ -50,9 +61,10 @@ const Filter = (props) => {
   };
 
   return (
-    <BackgroundFilter>
-      <label htmlFor="">Continents</label>
-      <select
+    <FilterContainer>
+      <StartButton onClick={() => navigate("/")}>HOMEPAGE</StartButton>
+      <FilterLabel htmlFor="">Continents</FilterLabel>
+      <FilterContinentSelect
         name="continentes"
         id="continents"
         onChange={handelSelectContinent}
@@ -77,21 +89,40 @@ const Filter = (props) => {
         {(isAllContinent === "Oceania" || isAllContinent === "All") && (
           <option value="Oceania">Oceania</option>
         )}
-      </select>
+      </FilterContinentSelect>
 
-      <button onClick={() => dispatch(getCountriesByNameAsc())}>Sort by country name ascending</button>
-      <button onClick={() => dispatch(getCountriesByNameDesc())}>
-        Sort by country name descendingly
-      </button>
+      <FilterSearchButton onClick={() => dispatch(getCountriesByNameAsc())}>Sort by country name ascending</FilterSearchButton>
+      <FilterSearchButton onClick={() => dispatch(getCountriesByNameDesc())}>Sort by country name descendingly</FilterSearchButton>
+      <FilterSearchButton onClick={() => dispatch(getCountriesByPopulationAsc())}>Sort by population ascending</FilterSearchButton>
+      <FilterSearchButton onClick={() => dispatch(getCountriesByPopulationDesc())}>Sort by population descendingly</FilterSearchButton>
 
-      <label htmlFor="">Filter by subregion</label>
+      <FilterLabel htmlFor="">Filter by subregion</FilterLabel>
       <input value={input.countrySubRegion} type="text" name="countrySubRegion" onChange={handleInputChange} />
-      <button onClick={() => dispatch(getCountriesBySubRegion(input.countrySubRegion))}>Find</button>
+      <FilterSearchButton onClick={() => dispatch(getCountriesBySubRegion(input.countrySubRegion))}>Find</FilterSearchButton>
 
-      <label htmlFor="">Filter by name</label>
+      <FilterLabel htmlFor="">Filter by name</FilterLabel>
       <input value={input.countryName} type="text" name="countryName" onChange={handleInputChange} />
-      <button onClick={handleClickCountryByName}>Find</button>
-    </BackgroundFilter>
+      <FilterSearchButton onClick={handleClickCountryByName}>Find</FilterSearchButton>
+
+      <FilterLabel htmlFor="">Filter by activity name</FilterLabel>
+      <input value={input.activityName} type="text" name="activityName" onChange={handleInputChange} />
+      <FilterSearchButton onClick={() => dispatch(getCountriesByActivityName(input.activityName))}>Find</FilterSearchButton>
+
+      <FilterLabel htmlFor="">Filter countries whit population less</FilterLabel>
+      <input value={input.lessPopulation} type="number" name="lessPopulation" onChange={handleInputChange} />
+      <FilterSearchButton onClick={() => dispatch(getCountriesWhitPopulationLessThanOrEqual(input.lessPopulation))}>Find</FilterSearchButton>
+
+      <FilterLabel htmlFor="">Filter countries whit population great</FilterLabel>
+      <input value={input.greatPopulation} type="number" name="greatPopulation" onChange={handleInputChange} />
+      <FilterSearchButton onClick={() => dispatch(getCountriesWhitPopulationGreaterThanOrEqual(input.greatPopulation))}>Find</FilterSearchButton>
+
+      <FilterLabel htmlFor="">Filter countries whit population between</FilterLabel>
+      <p>Min Population</p>
+      <input value={input.min} type="number" name="min" onChange={handleInputChange} />
+      <p>Max Population</p>
+      <input value={input.max} type="number" name="max" onChange={handleInputChange} />
+      <FilterSearchButton onClick={() => dispatch(getCountriesWhitPopulationBetween({ less: input.min, great: input.max }))}>Find</FilterSearchButton>
+    </FilterContainer>
   );
 }
 
