@@ -53,6 +53,32 @@ export const getCountriesByNameDesc = createAsyncThunk(
   }
 );
 
+export const getCountriesByPopulationAsc = createAsyncThunk(
+  "countries/getCountriesByPopulationAsc",
+  async () => {
+    return (countries) => {
+      return countries.sort((c1, c2) => {
+        if (c1.poblacion < c2.poblacion) return -1;
+        else if (c1.poblacion > c2.poblacion) return 1;
+        else return 0;
+      });
+    };
+  }
+);
+
+export const getCountriesByPopulationDesc = createAsyncThunk(
+  "countries/getCountriesByPopulationDesc",
+  async () => {
+    return (countries) => {
+      return countries.sort((c1, c2) => {
+        if (c1.poblacion > c2.poblacion) return -1;
+        else if (c1.poblacion < c2.poblacion) return 1;
+        else return 0;
+      });
+    };
+  }
+);
+
 export const getCountriesByContinent = createAsyncThunk(
   "countries/getCountriesByContinent",
   async (continent) => {
