@@ -66,7 +66,7 @@ const countriesSlice = createSlice({
       .addCase(getCountriesBySubRegion.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.list = state.list.filter((c) =>
-          c.subRegion.toLowerCase().includes(action.payload.toLowerCase())
+          String(c.subRegion).toLowerCase().includes(String(action.payload).toLowerCase())
         );
       })
       .addCase(getCountriesBySubRegion.rejected, (state, action) => {
