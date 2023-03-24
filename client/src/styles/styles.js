@@ -273,7 +273,12 @@ export const FilterSearchButton = styled.button`
 export const ActivityContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+  height: 100vh;
+  padding: 2rem;
+  box-sizing: border-box;
+  background-color: #98FB98;
 `;
 
 export const ActivityButton = styled.button`
