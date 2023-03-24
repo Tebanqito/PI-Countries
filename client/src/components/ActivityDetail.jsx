@@ -9,7 +9,6 @@ import {
     ActivityName,
     ActivitySeason,
     ActivityContainer,
-    FormContainer
 } from "../styles/styles";
 import Countries from "./Countries";
 
