@@ -278,7 +278,7 @@ export const ActivityContainer = styled.div`
   height: 100vh;
   padding: 2rem;
   box-sizing: border-box;
-  background-color: #98FB98;
+  background-color: #98fb98;
 `;
 
 export const ActivityButton = styled.button`
@@ -335,4 +335,9 @@ export const FilterContainer = styled.div`
   background-color: #f2f2f2;
   border-radius: 10px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+`;
+
+export const Pages = styled.ul`
+  list-style: none;
+  display: flexbox;
 `;
