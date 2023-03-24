@@ -32,7 +32,7 @@ const Countries = (props) => {
     const countriesToShow = countries.map(country => {
         return <li key={country?.id}>
             <CardContainer>
-                <DetailButton onClick={() => navigate(`/country/${country?.id}`)}>DETAIL</DetailButton>
+                {!props.noDetail && <DetailButton onClick={() => navigate(`/country/${country?.id}`)}>DETAIL</DetailButton>}
                 {props.adminUnlinkCountry && <button onClick={() => {
                     dispatch(unlinkCountry({ countryId: country?.id, activityId: props.activityId }));
                     if (setRenderCountries) setRenderCountries(!renderCountries);
