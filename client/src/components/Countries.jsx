@@ -6,6 +6,7 @@ import {
     NextPrevButton,
     DetailButton
 } from "../styles/styles";
+import { unlinkCountry, linkCountry } from "../redux/actions/activityActions";
 
 const Countries = (props) => {
     const navigate = useNavigate();
@@ -24,6 +25,8 @@ const Countries = (props) => {
         return <li key={country?.id}>
             <CardContainer>
                 <DetailButton onClick={() => navigate(`/country/${country?.id}`)}>DETAIL</DetailButton>
+                {props.admin && <button onClick={() => unlinkCountry({countryId: country?.id, activityId: props.id})}>UNLINK</button>}
+                {props.dashboard && <button onClick={() => linkCountry({countryId: country?.id, activityId: props.id})}>LINK</button>}
                 <p><b>NAME</b>: {country?.name}</p>
                 <p><b>CONTINENT</b>: {country?.continent}</p>
                 <CardImage src={country?.imgFlag} alt={`Flag of ${country?.name} `} />
