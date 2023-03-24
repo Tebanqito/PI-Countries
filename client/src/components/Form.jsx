@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addActivity, getActivities } from "../redux/actions/activityActions";
+import {
+  addActivity,
+  getActivities,
+  getActivityById,
+  updateActivityById,
+} from "../redux/actions/activityActions";
 import { getCountries } from "../redux/actions/countriesActions";
 import {
   FormContainer,
@@ -12,11 +17,13 @@ import {
   FormTitle,
   ErrorMessage,
 } from "../styles/styles";
+import Countries from "./Countries";
 
-const Form = (props) => {
+const Form = ({ id }) => {
   const dispatch = useDispatch();
   const countries = useSelector((state) => state.countries.list);
   const activities = useSelector((state) => state.activities.list);
+  const activity = useSelector((state) => state.activities.detail);
   const [input, setInput] = useState({
     name: "",
     difficulty: "",
@@ -41,6 +48,7 @@ const Form = (props) => {
   useEffect(() => {
     dispatch(getCountries());
     dispatch(getActivities());
+    if (id) dispatch(getActivityById(id));
   }, []);
 
   const validateInputs = (inputs) => {
@@ -108,9 +116,21 @@ const Form = (props) => {
         return;
       }
 
-      dispatch(
-        addActivity({ countriesId, name, difficulty, duration, season })
-      );
+      if (id) {
+        dispatch(
+          updateActivityById(id, {
+            countriesId,
+            name,
+            difficulty,
+            duration,
+            season,
+          })
+        );
+      } else {
+        dispatch(
+          addActivity({ countriesId, name, difficulty, duration, season })
+        );
+      }
 
       setInput({
         name: "",
@@ -132,59 +152,67 @@ const Form = (props) => {
   };
 
   return (
-    <FormContainer>
-      <FormTitle>Creation of Tourist Activity</FormTitle>
-      <FormLabel>Name:</FormLabel>
-      <FormInput
-        type="text"
-        name="name"
-        value={input.name}
-        onChange={handleInputChange}
-      />
-      {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
+    <div>
+      <FormContainer>
+        <FormTitle>{id ? "Update" : "Creation"} of Tourist Activity</FormTitle>
+        <FormLabel>Name:</FormLabel>
+        <FormInput
+          type="text"
+          name="name"
+          value={input.name}
+          onChange={handleInputChange}
+          placeholder={id ? activity.name : "name"}
+        />
+        {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
 
-      <FormLabel>Difficulty:</FormLabel>
-      <FormInput
-        type="number"
-        name="difficulty"
-        value={input.difficulty}
-        onChange={handleInputChange}
-      />
-      {errors.difficulty && <ErrorMessage>{errors.difficulty}</ErrorMessage>}
+        <FormLabel>Difficulty:</FormLabel>
+        <FormInput
+          type="number"
+          name="difficulty"
+          value={input.difficulty}
+          onChange={handleInputChange}
+          placeholder={id ? activity.difficulty : "difficulty"}
+        />
+        {errors.difficulty && <ErrorMessage>{errors.difficulty}</ErrorMessage>}
 
-      <FormLabel>Duration:</FormLabel>
-      <FormInput
-        type="text"
-        name="duration"
-        value={input.duration}
-        onChange={handleInputChange}
-      />
-      {errors.duration && <ErrorMessage>{errors.duration}</ErrorMessage>}
+        <FormLabel>Duration:</FormLabel>
+        <FormInput
+          type="text"
+          name="duration"
+          value={input.duration}
+          onChange={handleInputChange}
+          placeholder={id ? activity.duration : "duration"}
+        />
+        {errors.duration && <ErrorMessage>{errors.duration}</ErrorMessage>}
 
-      <FormLabel>Season:</FormLabel>
-      <FormInput
-        type="text"
-        name="season"
-        value={input.season}
-        onChange={handleInputChange}
-      />
-      {errors.season && <ErrorMessage>{errors.season}</ErrorMessage>}
+        <FormLabel>Season:</FormLabel>
+        <FormInput
+          type="text"
+          name="season"
+          value={input.season}
+          onChange={handleInputChange}
+          placeholder={id ? activity.season : "season"}
+        />
+        {errors.season && <ErrorMessage>{errors.season}</ErrorMessage>}
 
-      <FormLabel htmlFor="">Countries where it develops</FormLabel>
-      <FormSelect
-        name="countries"
-        value={countriesId}
-        onChange={handleSelect}
-        multiple
-      >
-        {countriesToSelect}
-      </FormSelect>
-      {!countriesId.length && <p>You must select at least one country</p>}
+        <FormLabel htmlFor="">Countries where it develops</FormLabel>
+        <FormSelect
+          name="countries"
+          value={countriesId}
+          onChange={handleSelect}
+          multiple
+        >
+          {countriesToSelect}
+        </FormSelect>
+        {!countriesId.length && <p>You must select at least one country</p>}
 
-      <FormButton type="submit" onClick={handleSubmit}>
-        Create Activity
-      </FormButton>
-    </FormContainer>
+        <FormButton type="submit" onClick={handleSubmit}>
+          {id ? "Update Activity" : "Create Activity"}
+        </FormButton>
+      </FormContainer>
+
+      {id && <Countries countries={activity.countries} admin={true} />}
+    </div>
   );
 };
 
