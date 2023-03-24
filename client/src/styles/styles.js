@@ -270,6 +270,39 @@ export const FilterSearchButton = styled.button`
   }
 `;
 
+export const ActivityContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const ActivityButton = styled.button`
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+
+  &:hover {
+    background-color: #0069d9;
+  }
+`;
+
+export const Divider = styled.hr`
+  border: none;
+  border-top: 1px solid #dee2e6;
+  margin: 1rem 0;
+`;
+
+export const ActivityItemContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+`;
+
 export const FilterContinentSelect = styled.select`
   margin-top: 5px;
   padding: 8px;
