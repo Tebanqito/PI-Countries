@@ -37,20 +37,43 @@ const getActivities = async () => {
 };
 
 const getActivityById = async (id) => {
-  const activity = await Activity.findByPk(id);
+  const activity = await Activity.findByPk(id, {
+    include: {
+      model: Country,
+      attributes: ["id", "name", "continent", "subRegion"],
+      through: {
+        attributes: [],
+      },
+    },
+  });
   return activity;
 };
 
 const getActivityByName = async (name) => {
   const activity = await Activity.findOne({
     where: { name: { [Op.like]: `%${name}%` } },
+    includes: {
+      model: Country,
+      attributes: ["id", "name", "continent", "subRegion"],
+      through: {
+        attributes: [],
+      },
+    },
   });
   return activity;
 };
 
 const getActivitiesByCountryId = async (countryId) => {
   const country = await Country.findByPk(countryId);
-  const activities = await country.getActivities({ include: [Country] });
+  const activities = await country.getActivities({
+    includes: {
+      model: Country,
+      attributes: ["id", "name", "continent", "subRegion"],
+      through: {
+        attributes: [],
+      },
+    },
+  });
   return activities;
 };
 
@@ -58,18 +81,42 @@ const getActivitiesByCountryName = async (name) => {
   const country = await Country.findOne({
     where: { name: { [Op.like]: `%${name}%` } },
   });
-  const activities = await country.getActivities({ include: [Country] });
+  const activities = await country.getActivities({
+    includes: {
+      model: Country,
+      attributes: ["id", "name", "continent", "subRegion"],
+      through: {
+        attributes: [],
+      },
+    },
+  });
   return activities;
 };
 
 const getActivitiesBySeason = async (season) => {
-  const activities = await Activity.findAll({ where: { season: season } });
+  const activities = await Activity.findAll({
+    where: { season: season },
+    includes: {
+      model: Country,
+      attributes: ["id", "name", "continent", "subRegion"],
+      through: {
+        attributes: [],
+      },
+    },
+  });
   return activities;
 };
 
 const getActivitiesByDifficulty = async (difficulty) => {
   const activities = await Activity.findAll({
     where: { difficulty: { [Op.eq]: difficulty } },
+    includes: {
+      model: Country,
+      attributes: ["id", "name", "continent", "subRegion"],
+      through: {
+        attributes: [],
+      },
+    },
   });
   return activities;
 };
