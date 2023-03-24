@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getActivityById } from "../redux/actions/activityActions";
+import { getCountriesByActivityId } from "../redux/actions/countriesActions";
 import {
     ActivityDifficulty,
     ActivityDuration,
     ActivityName,
-    ActivitySeason
+    ActivitySeason,
+    ActivityContainer,
+    FormContainer
 } from "../styles/styles";
 import Countries from "./Countries";
 
@@ -14,29 +17,32 @@ const ActivityDetail = (props) => {
     const dispatch = useDispatch();
     const { activityId } = useParams();
     const activity = useSelector(state => state.activities.detail);
+    const countries = useSelector(state => state.countries.list);
     const [renderActivity, setRenderActivity] = useState(true);
 
     useEffect(() => {
         dispatch(getActivityById(activityId));
+        dispatch(getCountriesByActivityId(activityId));
     }, [renderActivity]);
 
     return (
-        <div>
-            <div>
-                <ActivityName>NAME: {activity.name}</ActivityName>
-                <ActivityDifficulty>DIFFICULTY: {activity.difficulty}</ActivityDifficulty>
-                <ActivitySeason>DIFFICULTY: {activity.season}</ActivitySeason>
-                <ActivityDuration>DIFFICULTY: {activity.duration}</ActivityDuration>
-            </div>
+        <ActivityContainer>
+            <ActivityContainer>
+                <ActivityName>Activity name: {activity?.name}</ActivityName>
+                <ActivityDifficulty>Difficulty: {activity?.difficulty}</ActivityDifficulty>
+                <ActivitySeason>Season: {activity?.season}</ActivitySeason>
+                <ActivityDuration>Duration: {activity?.duration}</ActivityDuration>
+            </ActivityContainer>
 
-            <Countries
-                countries={activity?.countries}
+            {countries.length && <Countries
+                noDetail={true}
+                countries={countries}
                 adminUnlinkCountry={true}
                 setRenderActivity={setRenderActivity}
                 renderActivity={renderActivity}
                 activityId={activityId}
-            />
-        </div>
+            />}
+        </ActivityContainer>
     );
 };
 
