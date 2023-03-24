@@ -1,3 +1,4 @@
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -10,6 +11,7 @@ import { unlinkCountry, linkCountry } from "../redux/actions/activityActions";
 
 const Countries = (props) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
 
     const countriesPerPage = currentPage === 1 ? 9 : 10;
@@ -25,8 +27,8 @@ const Countries = (props) => {
         return <li key={country?.id}>
             <CardContainer>
                 <DetailButton onClick={() => navigate(`/country/${country?.id}`)}>DETAIL</DetailButton>
-                {props.admin && <button onClick={() => unlinkCountry({countryId: country?.id, activityId: props.id})}>UNLINK</button>}
-                {props.dashboard && <button onClick={() => linkCountry({countryId: country?.id, activityId: props.id})}>LINK</button>}
+                {props.admin && <button onClick={() => dispatch(unlinkCountry({countryId: country?.id, activityId: props.id}))}>UNLINK</button>}
+                {props.dashboard && <button onClick={() => dispatch(linkCountry({countryId: country?.id, activityId: props.id}))}>LINK</button>}
                 <p><b>NAME</b>: {country?.name}</p>
                 <p><b>CONTINENT</b>: {country?.continent}</p>
                 <CardImage src={country?.imgFlag} alt={`Flag of ${country?.name} `} />
