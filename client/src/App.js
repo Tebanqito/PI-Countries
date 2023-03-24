@@ -5,6 +5,7 @@ import CountryDetail from './components/CountryDetail';
 import ActivityDetail from "./components/ActivityDetail";
 import Form from './components/Form';
 import Dashboard from './components/Dashboard';
+import Activities from './components/Activities';
 import { Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/activity/:activityId" element={<ActivityDetail />} />
         <Route path="/home" element={<Home />} />
         <Route path="/activity" element={<Form />} />
+        <Route path="/activities" element={<Activities />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </div>
