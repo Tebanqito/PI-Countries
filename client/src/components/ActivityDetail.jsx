@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { getActivityById } from "../redux/actions/activityActions";
 import {
     ActivityDifficulty,
@@ -9,13 +10,14 @@ import {
 } from "../styles/styles";
 import Countries from "./Countries";
 
-const ActivityDetail = ({ id }) => {
+const ActivityDetail = (props) => {
     const dispatch = useDispatch();
+    const { activityId } = useParams();
     const activity = useSelector(state => state.activities.detail);
     const [renderActivity, setRenderActivity] = useState(true);
 
     useEffect(() => {
-        dispatch(getActivityById(id));
+        dispatch(getActivityById(activityId));
     }, [renderActivity]);
 
     return (
@@ -32,7 +34,7 @@ const ActivityDetail = ({ id }) => {
                 adminUnlinkCountry={true}
                 setRenderActivity={setRenderActivity}
                 renderActivity={renderActivity}
-                activityId={activity?.id}
+                activityId={activityId}
             />
         </div>
     );
