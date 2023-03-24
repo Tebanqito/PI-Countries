@@ -36,7 +36,7 @@ const Countries = (props) => {
                 {props.adminUnlinkCountry && <button onClick={() => {
                     dispatch(unlinkCountry({ countryId: country?.id, activityId: props.activityId }));
                     if (setRenderCountries) setRenderCountries(!renderCountries);
-                    if (setRenderActivity) setRenderActivity(!renderActivity);
+                    if (props.setRenderActivity) props.setRenderActivity(!props.renderActivity);
                 }}>UNLINK</button>}
                 {props.adminlinkCountry && <button onClick={() => {
                     dispatch(linkCountry({ countryId: country?.id, activityId: props.activityId }));
