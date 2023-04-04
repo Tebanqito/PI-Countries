@@ -14,6 +14,7 @@ import {
   getCountriesByNameDesc,
   getCountriesByPopulationAsc,
   getCountriesByPopulationDesc,
+  getCountriesWithoutActivityId,
 } from "../actions/countriesActions";
 
 const countriesSlice = createSlice({
@@ -206,6 +207,17 @@ const countriesSlice = createSlice({
         state.list = action.payload(state.list);
       })
       .addCase(getCountriesByPopulationDesc.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+      .addCase(getCountriesWithoutActivityId.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(getCountriesWithoutActivityId.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.list = action.payload;
+      })
+      .addCase(getCountriesWithoutActivityId.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       });
