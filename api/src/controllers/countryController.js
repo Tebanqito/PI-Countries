@@ -29,6 +29,29 @@ const getCountryById = async (id) => {
   return country;
 };
 
+const findAllCountriesWithoutActivityId = async (activityId) => {
+  const countries = await Country.findAll({
+    include: [
+      {
+        model: Activity,
+        through: {
+          attributes: [],
+        },
+        where: {
+          id: activityId,
+        },
+        required: false, // para que incluya también los países que no tienen actividad turística
+      },
+    ],
+    where: {
+      [Sequelize.Op.and]: [
+        Sequelize.literal('"Activities"."id" IS NULL'), // para filtrar los países que no tienen actividad turística
+      ],
+    },
+  });
+  return countries;
+};
+
 const findAllCountriesOrderByPopulationDesc = async () => {
   const countries = await Country.findAll({
     order: [["poblacion", "DESC"]],
@@ -166,5 +189,6 @@ module.exports = {
   findAllCountriesOrderByNameDesc,
   findAllCountriesOrderByNameAsc,
   findAllCountriesOrderByPopulationDesc,
-  findAllCountriesOrderByPopulationAsc
+  findAllCountriesOrderByPopulationAsc,
+  findAllCountriesWithoutActivityId,
 };
