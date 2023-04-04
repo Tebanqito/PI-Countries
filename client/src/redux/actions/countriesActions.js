@@ -79,6 +79,16 @@ export const getCountriesByPopulationDesc = createAsyncThunk(
   }
 );
 
+export const getCountriesWithoutActivityId = createAsyncThunk(
+  "countries/getCountriesWithoutActivity",
+  async (activityId) => {
+    const response = await axios.get(
+      `http://localhost:3001/countries/countriesWithoutActivity/${activityId}`
+    );
+    return response.data;
+  }
+);
+
 export const getCountriesByContinent = createAsyncThunk(
   "countries/getCountriesByContinent",
   async (continent) => {
