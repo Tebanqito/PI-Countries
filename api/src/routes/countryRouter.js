@@ -15,6 +15,7 @@ const {
   findAllCountriesOrderByNameDesc,
   findAllCountriesOrderByPopulationAsc,
   findAllCountriesOrderByPopulationDesc,
+  findAllCountriesWithoutActivityId,
 } = require("../controllers/countryController");
 const countryRouter = Router();
 const { Country } = require("../db");
@@ -39,14 +40,16 @@ countryRouter.get("/", async (req, res) => {
 
         countries.forEach(async (element) => {
           await Country.create({
-              id: element.cca3,
-              name: element.name.official ? element.name.official : element.name.common,
-              imgFlag: element.flags ? element.flags[0] : element.flag,
-              continent: element.region ? element.region : element.continents[0],
-              capital: element.capital ? element.capital[0] : "No posee capital",
-              subRegion: element.subregion,
-              area: element.area,
-              poblacion: element.population
+            id: element.cca3,
+            name: element.name.official
+              ? element.name.official
+              : element.name.common,
+            imgFlag: element.flags ? element.flags[0] : element.flag,
+            continent: element.region ? element.region : element.continents[0],
+            capital: element.capital ? element.capital[0] : "No posee capital",
+            subRegion: element.subregion,
+            area: element.area,
+            poblacion: element.population,
           });
           // await createCountry({
           //   id: element.cca3,
@@ -67,6 +70,19 @@ countryRouter.get("/", async (req, res) => {
     }
 
     return res.status(200).json(countries);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+countryRouter.get("/countriesWhitoutActvity/:activityId", async (req, res) => {
+  const { activityId } = req.params;
+
+  try {
+    if (!activityId) throw new Error("El id de la actividad esta indefinido.");
+
+    const countries = await findAllCountriesWithoutActivityId(activityId);
+    res.status(200).json(countries);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
