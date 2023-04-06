@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
     CardContainer,
     CardImage,
@@ -13,7 +13,7 @@ import { getCountries } from "../redux/actions/countriesActions";
 const Countries = (props) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { activityId } = useParams();
+    const { activityId } = props;
     const [renderCountries, setRenderCountries] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -27,7 +27,7 @@ const Countries = (props) => {
     const finalPage = Math.ceil((numCountries - 9) / 10) + 1;
 
     useEffect(() => {
-        if (!props.setRenderActivity) dispatch(getCountries());
+        if (!props.setRenderActivity && !props.adminlinkCountry) dispatch(getCountries());
     }, [renderCountries]);
 
     const countriesToShow = countries.map(country => {
@@ -41,8 +41,7 @@ const Countries = (props) => {
                 }}>UNLINK</button>}
                 {props.adminlinkCountry && <button onClick={() => {
                     dispatch(linkCountry({ countryId: country?.id, activityId: activityId }));
-                    if (setRenderCountries) setRenderCountries(!renderCountries);
-                    if (props.setRenderActivity) props.setRenderActivity(!props.renderActivity);
+                    props.setRenderAddCountries(!props.renderAddCountries);
                 }}>LINK</button>}
                 <p><b>NAME</b>: {country?.name}</p>
                 <p><b>CONTINENT</b>: {country?.continent}</p>
