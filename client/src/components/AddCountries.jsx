@@ -6,12 +6,13 @@ import {
     getCountriesByContinent,
     getCountryByName,
 } from "../redux/actions/countriesActions";
-import { linkCountry } from "../redux/actions/activityActions";
+import Countries from "./Countries";
 
 const AddCountries = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { activityId } = useParams();
+    const [renderAddCountries, setRenderAddCountries] = useState(false);
     const countries = useSelector((state) => state.countries.list);
     const [filters, setFilters] = useState({
         continent: "",
@@ -26,8 +27,8 @@ const AddCountries = () => {
     };
 
     useEffect(() => {
-        activityId && dispatch(getCountriesWithoutActivityId(activityId));
-    }, []);
+        dispatch(getCountriesWithoutActivityId(activityId));
+    }, [renderAddCountries]);
 
     return (
         <>
@@ -42,16 +43,9 @@ const AddCountries = () => {
 
             <label htmlFor="">Filter by name</label>
             <input type="text" name="name" value={filters.name} onChange={handleInputChange} />
-            <button onClick={(dispatch(getCountryByName(filters.name)))} >Find</button>
+            <button onClick={() => (dispatch(getCountryByName(filters.name)))} >Find</button>
 
-            {countries.length && countries.map((c) => (
-                <div>
-                    <button onClick={() => dispatch(linkCountry({ countryId: c?.id, activityId: activityId }))}>ADD</button>
-                    <p>Name: {c?.name}</p>
-                    <p>Continent: {c?.continent}</p>
-                    <img src={c?.imgFlag} />
-                </div>
-            ))}
+            {countries.length && <Countries countries={countries} activityId={activityId} adminlinkCountry={true} setRenderAddCountries={setRenderAddCountries} renderAddCountries={renderAddCountries} />}
         </>
     );
 };
