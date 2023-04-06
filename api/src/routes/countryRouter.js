@@ -75,7 +75,7 @@ countryRouter.get("/", async (req, res) => {
   }
 });
 
-countryRouter.get("/countriesWhitoutActvity/:activityId", async (req, res) => {
+countryRouter.get("/countriesWhitoutActivity/:activityId", async (req, res) => {
   const { activityId } = req.params;
 
   try {
