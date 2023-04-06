@@ -1,5 +1,5 @@
 const { Country, Activity } = require("../db");
-const { Op } = require("sequelize");
+const { Op, literal, } = require("sequelize");
 
 const createCountry = async (
   id,
@@ -44,8 +44,8 @@ const findAllCountriesWithoutActivityId = async (activityId) => {
       },
     ],
     where: {
-      [Sequelize.Op.and]: [
-        Sequelize.literal('"Activities"."id" IS NULL'), // para filtrar los países que no tienen actividad turística
+      [Op.and]: [
+        literal('"Activities"."id" IS NULL'), // para filtrar los países que no tienen actividad turística
       ],
     },
   });
