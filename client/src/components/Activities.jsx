@@ -24,7 +24,7 @@ const Activities = ({ activities }) => {
     return (
       <ActivityItemContainer key={a.id}>
         <ActivityButton onClick={() => navigate(`/activity/${a.id}`)}>DETAIL</ActivityButton>
-        <ActivityButton onClick={() => navigate(`/addCountry/${a.id}`)}>ADD COUNTRIES</ActivityButton>
+        <ActivityButton onClick={() => navigate(`/addCountries/${a.id}`)}>ADD COUNTRIES</ActivityButton>
         <ActivityName>Activity name: {a.name}</ActivityName>
         <Divider />
       </ActivityItemContainer>
