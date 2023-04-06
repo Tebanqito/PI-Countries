@@ -1,11 +1,11 @@
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
     CardContainer,
     CardImage,
     NextPrevButton,
-    DetailButton
+    DetailButton,
 } from "../styles/styles";
 import { unlinkCountry, linkCountry } from "../redux/actions/activityActions";
 import { getCountries } from "../redux/actions/countriesActions";
@@ -13,6 +13,7 @@ import { getCountries } from "../redux/actions/countriesActions";
 const Countries = (props) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { activityId } = useParams();
     const [renderCountries, setRenderCountries] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -34,12 +35,12 @@ const Countries = (props) => {
             <CardContainer>
                 {!props.noDetail && <DetailButton onClick={() => navigate(`/country/${country?.id}`)}>DETAIL</DetailButton>}
                 {props.adminUnlinkCountry && <button onClick={() => {
-                    dispatch(unlinkCountry({ countryId: country?.id, activityId: props.activityId }));
+                    dispatch(unlinkCountry({ countryId: country?.id, activityId: activityId }));
                     if (setRenderCountries) setRenderCountries(!renderCountries);
                     if (props.setRenderActivity) props.setRenderActivity(!props.renderActivity);
                 }}>UNLINK</button>}
                 {props.adminlinkCountry && <button onClick={() => {
-                    dispatch(linkCountry({ countryId: country?.id, activityId: props.activityId }));
+                    dispatch(linkCountry({ countryId: country?.id, activityId: activityId }));
                     if (setRenderCountries) setRenderCountries(!renderCountries);
                     if (props.setRenderActivity) props.setRenderActivity(!props.renderActivity);
                 }}>LINK</button>}
