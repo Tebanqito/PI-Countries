@@ -83,7 +83,7 @@ export const getCountriesWithoutActivityId = createAsyncThunk(
   "countries/getCountriesWithoutActivity",
   async (activityId) => {
     const response = await axios.get(
-      `http://localhost:3001/countries/countriesWithoutActivity/${activityId}`
+      `http://localhost:3001/countries/countriesWhitoutActivity/${activityId}`
     );
     return response.data;
   }
