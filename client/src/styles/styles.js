@@ -337,7 +337,33 @@ export const FilterContainer = styled.div`
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
-export const Pages = styled.ul`
-  list-style: none;
-  display: flexbox;
+export const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+`;
+
+export const PaginationButton = styled.button`
+  background-color: #fff;
+  border: 1px solid #ccc;
+  color: #333;
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #333;
+    color: #fff;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+`;
+
+export const BackgroundActivities = styled.div`
+  background-color: #98fb98;
 `;
